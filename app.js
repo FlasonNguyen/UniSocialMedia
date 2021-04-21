@@ -5,6 +5,9 @@ const session = require('express-session')
 require('dotenv').config()
 
 const app = express()
+app.set('view engine', 'ejs')
+app.use(express.static(__dirname + '/public'))
+app.use(express.urlencoded({extended: false}))
 
 app.use(session({
     secret: "cats",
@@ -35,9 +38,7 @@ app.get('/fb', (req, res) => {
 })
 
 
-app.set('view engine', 'ejs')
-app.use(express.static(__dirname + '/public'))
-app.use(express.urlencoded({extended: false}))
+
 
 mongoose.connect(process.env.MONGODB_CONNECTION,
     {
