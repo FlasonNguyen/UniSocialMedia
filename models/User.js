@@ -12,10 +12,6 @@ const UserSchema = new mongoose.Schema({
     name: {
         type: String,
         require: true
-    },
-    date: {
-        type: Date,
-        require: true
     }
 })
 UserSchema.plugin(findOrCreate);

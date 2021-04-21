@@ -18,9 +18,14 @@ passport.use(new GoogleStrategy({
 },
 
 function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate({googleId: profile.id}, function (err, user) {
-        console.log(user)
-        return done(err, user)
-    })
+    if(profile._json.hd == "student.tdtu.edu.vn") {
+        User.findOrCreate({email: profile.emails[0].value},{name: profile.displayName}, function (err, user) {
+            return done(err, user)
+        })
+    }
+    else{
+        err = "NOT A TDTU GOOGLE"
+        return done(err)
+    }
 }
 ))
