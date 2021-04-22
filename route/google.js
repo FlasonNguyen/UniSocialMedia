@@ -10,7 +10,7 @@ router.get('/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
     //console.log(req.user)
-    res.render('newfeed')
+    res.render('newfeed',{role: 'student'})
 });
 
 module.exports = router
