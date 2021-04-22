@@ -4,6 +4,7 @@ const {validationResult} = require('express-validator')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
+const CheckLogin = require('../auth/CheckLogin')
 const User = require('../models/User')
 
 const loginValidator = require('./validators/loginValidator')
@@ -12,7 +13,7 @@ const registerValidator = require('./validators/registerValidator')
 router.get('/', (req, res) => {
     res.render('login')
 })
-router.get('/register', (req, res) => {
+router.get('/register', CheckLogin, (req, res) => {
     res.render('admin')
 })
 
@@ -44,7 +45,8 @@ router.post('/', loginValidator, (req, res) => {
                 expiresIn: '1h'
             }, (err, token) => {
                 if(err) throw err
-                return res.render('index')
+                console.log(token)
+                return res.render('newfeed')
             })
         })
         .catch(e => {
@@ -86,7 +88,7 @@ router.post('/register', registerValidator, (req, res) => {
         })
         .then(() => {
             // không cần trả về chi tiết tài khoản nữa
-            return res.render('index')
+            return res.render('newfeed')
         })
         .catch(e => {
             return res.json({code: 2, message: 'Đăng ký tài khoản thất bại: ' +e.message})

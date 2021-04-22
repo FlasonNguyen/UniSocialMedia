@@ -33,9 +33,6 @@ app.use('/auth/google', require('./route/google'))
 
 app.use('/', require('./route/index'))
 app.use('/login',require('./route/login'))
-app.get('/fb', (req, res) => {
-    res.render('facebook')
-})
 
 
 
