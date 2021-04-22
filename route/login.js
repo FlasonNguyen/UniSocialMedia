@@ -24,12 +24,14 @@ router.post('/', loginValidator, (req, res) => {
     if(result.errors.length === 0) {
         let {email, password} = req.body
         let user = undefined
+        let role = undefined
 
         User.findOne({email: email})
         .then(u => {
             if(!u) {
                 throw new Error('Email không tồn tại')
             }
+            role = u.role
             user = u
             return bcrypt.compare(password, u.password)
         })
@@ -45,8 +47,8 @@ router.post('/', loginValidator, (req, res) => {
                 expiresIn: '1h'
             }, (err, token) => {
                 if(err) throw err
-                console.log(token)
-                return res.render('newfeed')
+                console.log(role)
+                return res.render('newfeed',{role})
             })
         })
         .catch(e => {
@@ -69,7 +71,7 @@ router.post('/register', registerValidator, (req, res) => {
     let result = validationResult(req)
     if (result.errors.length === 0) {
 
-        let {email, password, name} = req.body
+        let {email, password, name, role} = req.body
         User.findOne({email: email})
         .then(acc => {
             if (acc) {
@@ -82,7 +84,8 @@ router.post('/register', registerValidator, (req, res) => {
             let user = new User({
                 email: email,
                 password: hashed,
-                name: name
+                name: name,
+                role: role
             })
             return user.save();
         })

@@ -6,6 +6,7 @@ router.get('/', CheckLogin, (req, res) => {
     res.redirect('/login')
 })
 router.get('/newfeed', CheckLogin, (req, res) => {
+    console.log(req)
     res.render('newfeed')
 })
 

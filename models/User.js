@@ -12,6 +12,11 @@ const UserSchema = new mongoose.Schema({
     name: {
         type: String,
         require: true
+    },
+    role: {
+        type: String,
+        require: true,
+        default: 'student'
     }
 })
 UserSchema.plugin(findOrCreate);
