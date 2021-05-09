@@ -9,8 +9,8 @@ router.get('/',
 router.get('/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
-    //console.log(req.user)
-    res.render('newfeed',{role: 'student'})
+    req.session._id = req.user._id
+    res.redirect('/newfeed')
 });
 
 module.exports = router

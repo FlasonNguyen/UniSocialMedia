@@ -2,9 +2,8 @@ const express = require('express')
 const router = express.Router()
 const {validationResult} = require('express-validator')
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
 
-const CheckLogin = require('../auth/CheckLogin')
+
 const User = require('../models/User')
 
 const loginValidator = require('./validators/loginValidator')
@@ -13,7 +12,7 @@ const registerValidator = require('./validators/registerValidator')
 router.get('/', (req, res) => {
     res.render('login')
 })
-router.get('/register', CheckLogin, (req, res) => {
+router.get('/register', (req, res) => {
     res.render('admin')
 })
 
@@ -21,38 +20,37 @@ router.get('/register', CheckLogin, (req, res) => {
 
 router.post('/', loginValidator, (req, res) => {
     let result = validationResult(req)
+    console.log(result)
     if(result.errors.length === 0) {
         let {email, password} = req.body
         let user = undefined
         let role = undefined
+        let errors = []
 
         User.findOne({email: email})
         .then(u => {
             if(!u) {
-                throw new Error('Email không tồn tại')
+                errors.push('Email không tồn tại')
             }
             role = u.role
             user = u
+            //console.log(user._id)
             return bcrypt.compare(password, u.password)
         })
         .then(passwordMatch => {
             if(!passwordMatch) {
-                return res.status(401).json({code: 3, message: 'Mật khẩu không đúng'})
+                //return res.status(401).json({code: 3, message: })
+                return res.render('login',{errors: 'Mật khẩu không đúng'})
             }
-            const JWT_SECRET = process.env.JWT_SECRET
-            jwt.sign({
-                email: user.email,
-                name: user.name
-            },JWT_SECRET, {
-                expiresIn: '1h'
-            }, (err, token) => {
-                if(err) throw err
-                console.log(role)
-                return res.render('newfeed',{role})
-            })
+            req.session._id = user._id
+            req.session.role = user.role
+            req.session.name = user.name
+            console.log(req.session.email)
+            res.redirect('/newfeed')
         })
         .catch(e => {
-            return res.status(401).json({code: 2, message: 'Login thất bại' + e.message})
+            //return res.status(401).json({code: 2, message: 'Login thất bại' + e.message})
+            return res.render('login',{errors: 'Login thất bại' + e.message})
         })
     }else {
         let messages = result.mapped()
@@ -61,7 +59,9 @@ router.post('/', loginValidator, (req, res) => {
             message = messages[m].msg
             break
         }
-        return res.json({code: 1, message: message})
+        console.log(message)
+        return res.render('login',{errors: message})
+        //return res.json({code: 1, message: message})
     }
 })
 

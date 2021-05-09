@@ -13,9 +13,8 @@ app.use(session({
     secret: "cats",
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true }
+    cookie: { secure: false }
 }))
-app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
 //--------------------------------GOOGLE LOGIN-----------------------------------
@@ -30,8 +29,11 @@ app.use('/auth/google', require('./route/google'))
 
 
 //--------------------------------GOOGLE LOGIN-----------------------------------
+app.get('/', (req, res) => {
+    res.redirect('/login')
+})
 
-app.use('/', require('./route/index'))
+app.use('/newfeed', require('./route/newfeed'))
 app.use('/login',require('./route/login'))
 
 

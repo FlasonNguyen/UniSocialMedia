@@ -18,6 +18,7 @@ passport.use(new GoogleStrategy({
 },
 
 function(accessToken, refreshToken, profile, done) {
+    //console.log('OK')
     if(profile._json.hd == "student.tdtu.edu.vn") {
         User.findOrCreate({email: profile.emails[0].value},{name: profile.displayName}, function (err, user) {
             return done(err, user)

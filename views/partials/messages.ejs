@@ -1,5 +1,7 @@
 <% if (typeof errors != 'undefined') { %>
     <% errors.forEach(function(error) { %>
-        <%= error.msg %>
+       <div class="alert alert-warning alert-dismissible fade show" role="alert"></div>
+          <strong>ERROR:</strong><%= error.msg %>
+       </div>
     <% }) %>
 <% } %>
