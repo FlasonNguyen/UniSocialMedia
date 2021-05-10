@@ -2,6 +2,7 @@ const express = require('express')
 const passport = require('passport')
 const mongoose = require('mongoose')
 const session = require('express-session')
+const User = require('./models/User')
 require('dotenv').config()
 
 const app = express()
@@ -16,6 +17,7 @@ app.use(session({
     cookie: { secure: false }
 }))
 app.use(express.json())
+
 
 //--------------------------------GOOGLE LOGIN-----------------------------------
 

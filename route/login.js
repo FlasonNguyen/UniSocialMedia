@@ -91,7 +91,7 @@ router.post('/register', registerValidator, (req, res) => {
         })
         .then(() => {
             // không cần trả về chi tiết tài khoản nữa
-            return res.render('newfeed')
+            return res.redirect('newfeed')
         })
         .catch(e => {
             return res.json({code: 2, message: 'Đăng ký tài khoản thất bại: ' +e.message})

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const findOrCreate = require('mongoose-findorcreate')
-const PostsSchema = new mongoose.Schema({
+const CommentsSchema = new mongoose.Schema({
     content: {
         type: String,
         require: true
@@ -9,15 +9,15 @@ const PostsSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    Likes: {
-        type: String,
-        default: 0
-    },
     Owner: {
+        type: String,
+        require: true
+    },
+    PostId: {
         type: String,
         require: true
     }
 })
-PostsSchema.plugin(findOrCreate);
-const Posts = mongoose.model('Posts', PostsSchema)
-module.exports = Posts
+CommentsSchema.plugin(findOrCreate);
+const Comments = mongoose.model('Comments', CommentsSchema)
+module.exports = Comments
