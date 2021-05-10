@@ -109,21 +109,21 @@
             </button>
           </div>
           <div class="modal-body">
-            <form>
+            <form action="/newfeed/createNotification" method="POST">
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label">Tiêu đề:</label>
-                <input type="text" class="form-control" id="name">
+                <input name="title" type="text" class="form-control" id="name">
               </div>
 
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label">Nội dung:</label>
-                <input type="text" class="form-control" id="lop">
+                <input name="content" type="text" class="form-control" id="lop">
               </div>
 
              
               <div class="form-group">
                 <h5>Danh sách khoa:</h5>
-                <select name="country" multiple class="form-control" id="khoa">
+                <select name="falcuty" multiple class="form-control" id="khoa">
                   <option value="KHOA HỌC THỂ THAO">Khoa học thể thao</option>
                   <option value="KHOA HỌC ỨNG DỤNG">Khoa học ứng dụng</option>
                   <option value="KHOA HỌC XÃ HỘI VÀ NHÂN VĂN">Khoa học xã hội & nhân văn</option>
@@ -140,14 +140,13 @@
                   <option value="TÀI CHÍNH NGÂN HÀNG">Tài chính ngân hàng</option>
                   <option value="MÔI TRƯỜNG VÀ BẢO HỘ LAO ĐỘNG">Môi trường và bảo hộ lao động</option>
                   <option value="LAO ĐỘNG VÀ CÔNG ĐOÀN">Lao động và công đoàn</option>
-
                 </select>
               </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Lưu</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+              </div>
             </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Lưu</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
           </div>
       </div>
     </div>
@@ -198,6 +197,14 @@
 <!-- End Edit Modal -->
 
     <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-9 col-md-6 col-lg-8 p-3">
+                <div class="alert alert-primary fixed-top" role="alert">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    Phòng Đại học vừa đăng thông báo <a href="#" class="alert-link">THÔNG BÁO V/v thay đổi hình thức dạy – học trên nền tảng công nghệ số từ ngày 10/5/2021</h1></a>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-sm-9 col-md-6 col-lg-8 p-3">
                 <!-- <div class="card mt-3 bg-light">
