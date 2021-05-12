@@ -17,6 +17,7 @@ router.get('/', (req, res) => {
     else{
         post = undefined
         comment = undefined
+        notif = undefined
         Posts.find((err, data) => {
             if(err) console.log(err)
             post = data
@@ -25,13 +26,33 @@ router.get('/', (req, res) => {
             if(err) console.log(err)
             comment = data
         })
+        Notifications.find((err, data) => {
+            if(err) console.log(err)
+            notif = data
+        })
         User.findOne({_id: req.session._id})
         .then(u => {
             //console.log(u)
-            res.render('newfeed',{user: u, posts: post, comments: comment})
+            res.render('newfeed',{user: u, posts: post, comments: comment, notifs: notif})
         })
         .catch(e => console.log(e))
     }
+})
+router.get('/allNotif', (req, res) => {
+    if(!req.session._id) {
+        res.redirect('/login')
+    }
+    let notif = undefined
+    Notifications.find((err, data) => {
+        if(err) console.log(err)
+        notif = data
+    })
+    User.findOne({_id: req.session._id})
+    .then(u => {
+        //console.log(u)
+        res.render('tatcathongbao',{user: u, notifs: notif})
+    })
+    .catch(e => console.log(e))
 })
 router.post('/create', (req, res) => {
     if(!req.body.postcontent) {
@@ -85,20 +106,19 @@ router.post('/createNotification', (req, res) => {
             return res.render('newfeed',{errors: 'Input comment first'})
         }
         let user = undefined
-        let falcuty = req.body.falcuty.toString()
-        //console.log(falcuty)
         User.findOne({_id: req.session._id})
         .then(u => {user = u})
         .then(() => {
             let Noti = new Notifications({
+                falcuty: req.body.falcuty,
                 title: req.body.title,
                 content: req.body.content,
-                Owner: user.name,
-                Falcuty: falcuty
+                Owner: user.name
                 }
             )
             return Noti.save()
         })
+        .then(data => console.log(data))
         .then(() => { res.redirect('/newfeed')})
     } else {
         res.redirect('/login')

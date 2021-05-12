@@ -55,7 +55,7 @@ $(document).ready(function() {
         let title = document.getElementById('NotifTitle').value
         let content = document.getElementById('NotifContent').value
         let falcuty = document.getElementById('falcuty').value
-        $('#khoa').modal('hide')
+        //$('#khoa').modal('hide')
         $.ajax({
             url: '/newfeed/createNotification',
             type: 'POST',

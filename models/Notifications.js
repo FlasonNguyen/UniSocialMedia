@@ -17,8 +17,8 @@ const NotiSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    Faculty: {
-        type: [String],
+    falcuty: {
+        type: String,
         require: true
     }
 

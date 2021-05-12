@@ -124,7 +124,7 @@
              
               <div class="form-group">
                 <h5>Danh sách khoa:</h5>
-                <select id="falcuty" name="falcuty" multiple class="form-control">
+                <select id="falcuty" name="falcuty" class="form-control">
                   <option value="KHOA HỌC THỂ THAO">Khoa học thể thao</option>
                   <option value="KHOA HỌC ỨNG DỤNG">Khoa học ứng dụng</option>
                   <option value="KHOA HỌC XÃ HỘI VÀ NHÂN VĂN">Khoa học xã hội & nhân văn</option>
@@ -142,10 +142,9 @@
                   <option value="MÔI TRƯỜNG VÀ BẢO HỘ LAO ĐỘNG">Môi trường và bảo hộ lao động</option>
                   <option value="LAO ĐỘNG VÀ CÔNG ĐOÀN">Lao động và công đoàn</option>
                 </select>
-                <small class="form-text text-muted">Holding Ctrl to choose multiple options</small>
               </div>
               <div class="modal-footer">
-                <button type="button" id="sendNotif" onclick="sendMessage()" class="btn btn-primary">Lưu</button>
+                <button type="button" data-dismiss="modal" id="sendNotif" onclick="sendMessage()" class="btn btn-primary">Lưu</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
               </div>
             </form>
@@ -447,7 +446,7 @@
                 <div class="card mt-3 bg-light">
                     <div class="card-header text-center">
                         <h5>THÔNG BÁO MỚI</h5>
-                        <a href="#">
+                        <a href="/newfeed/allNotif">
                             <p class="card-text text-right">Xem tất cả</p>
                         </a>
                     </div>
