@@ -51,23 +51,24 @@ $(document).ready(function() {
         })
         .catch(e => console.log(e))
     })
-    // $('#sendNotif').click(e => {
-    //     let title = document.getElementById('NotifTitle').value
-    //     let content = document.getElementById('NotifContent').value
-    //     let falcuty = document.getElementById('falcuty').value
-    //     $.ajax({
-    //         url: '/newfeed/createNotification',
-    //         type: 'POST',
-    //         data: {
-    //             title: title,
-    //             content: content,
-    //             falcuty: falcuty
-    //         }
-    //     })
-    //     .done(data => {
-    //         console.log(data)
-    //     }) 
-    // })
+    $('#sendNotif').click(e => {
+        let title = document.getElementById('NotifTitle').value
+        let content = document.getElementById('NotifContent').value
+        let falcuty = document.getElementById('falcuty').value
+        $('#khoa').modal('hide')
+        $.ajax({
+            url: '/newfeed/createNotification',
+            type: 'POST',
+            data: {
+                title: title,
+                content: content,
+                falcuty: falcuty
+            }
+        })
+        .done(data => {
+            console.log(data)
+        })
+    })
   });
 function postNewfeed() {
     var content = document.getElementById('postcontent').value
