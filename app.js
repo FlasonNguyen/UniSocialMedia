@@ -57,7 +57,7 @@ mongoose.connect(process.env.MONGODB_CONNECTION,
             console.log('http://localhost:'+process.env.PORT+"/login")
 
             io.on("connection", (socket) => {
-                console.log('User '+ socket.id)
+                //console.log('User '+ socket.id)
 
                 socket.on("messageSent", (message) => {
                     socket.broadcast.emit("messageSent", message)

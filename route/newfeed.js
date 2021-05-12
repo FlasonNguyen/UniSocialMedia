@@ -105,7 +105,10 @@ router.post('/postComment', (req, res) => {
         let user = undefined
         //console.log(comment, postId)
         User.findOne({_id: req.session._id})
-        .then(u => {user = u})
+        .then(u => {
+            user = u
+        })
+        //console.log(user)
         Posts.findOne({_id: postId})
         .then(p => {
             if(!p) res.send('PostID NOT Valid')
@@ -114,7 +117,6 @@ router.post('/postComment', (req, res) => {
                 Owner: user.name,
                 PostId: postId
             })
-            console.log('success')
             return comment.save();
         })
         .then(() => {res.redirect('/newfeed')})
@@ -171,6 +173,17 @@ router.post('/update/:id', (req, res) => {
         doc.createAt = current
         doc.save()
     } )
+    return res.json({code: 0, message: 'OK'})
+})
+router.post('/commentdelete/:id', (req, res) => {
+    if(!req.params.id) {
+        return res.json({code: 1, message: 'Invalid ID'})
+    }
+    console.log(req.params.id)
+    Comments.findOneAndDelete({_id: req.params.id})
+    .then(data => {
+        console.log(data)
+    })
     return res.json({code: 0, message: 'OK'})
 })
 module.exports = router

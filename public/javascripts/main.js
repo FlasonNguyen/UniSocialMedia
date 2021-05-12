@@ -8,6 +8,7 @@ function multipleFunc() {
 $(document).ready(function() {
     $('#post-delete').click(e => {
         const btn = e.target
+        
         const id = btn.dataset.id
         //console.log('Clicked')
         $('#btn-delete-confirmed').attr('data-id', id)
@@ -16,20 +17,52 @@ $(document).ready(function() {
     $('#btn-delete-confirmed').click(e => {
         $('#confirm-delete-dialog').modal('hide')
         const btn = e.target
+        console.log(btn)
+        console.log(btn.dataset)
+        console.log(btn.dataset.id)
         const id = btn.dataset.id
-
-        fetch('http://localhost:8080/newfeed/delete/'+id, {
-            method: 'POST'
+        $.ajax({
+            url: 'http://localhost:8080/newfeed/delete/'+id,
+            type: 'POST',
+            data: {
+                id: id
+            }
         })
-        .then(res => res.json())
-        .then(json => console.log(json))
+        .then(data => console.log(data))
         .catch(e => console.log(e))
+        // fetch('http://localhost:8080/newfeed/delete/'+id, {
+        //     method: 'POST'
+        // })
+        // .then(res => res.json())
+        // .then(json => console.log(json))
+        // .catch(e => console.log(e))
     })
     $('#post-update').click(e => {
         const btn = e.target
         const id = btn.dataset.id
         $('#update-confirmed').attr('data-id', id)
         $('#modalUpdate').modal('show')
+    })
+    $('#commentdelete').click(e => {
+        e.preventDefault()
+        const btn = e.target
+        console.log(btn)
+        console.log(btn.dataset)
+        console.log(btn.dataset.id)
+        const id = btn.dataset.id
+        //console.log(id)
+        $.ajax({
+            url: 'http://localhost:8080/newfeed/commentdelete/'+id,
+            type: 'POST',
+            data: {
+                id: id
+            }
+        })
+        .then(data => {
+            console.log(data)
+            $(`li#${id}`).remove()
+        })
+        .catch(e => console.log(e))
     })
     $('#update-confirmed').click(e => {
         $('#modalUpdate').modal('hide')
@@ -66,7 +99,7 @@ $(document).ready(function() {
             }
         })
         .done(data => {
-            console.log(data)
+            //console.log(data)
         })
     })
   });
@@ -119,16 +152,31 @@ function postComment() {
     ajax.send("comment=" + comment + "&postId=" + postId);
 }
 var socket = io('http://localhost:8080')
-
+//------------------------------------------------------------------------------ĐOẠN NÀY CẦN COI LẠI À NHA-----------------------------------------------//
 socket.on("messageSent", (message) => {
     $.notify(message.falcuty + "Vừa đăng thông báo: "+ message.content)
+    //popup(message.falcuty,message.title)
 })
 
 function sendMessage() {
     console.log('Clicked')
+    let falcuty = document.getElementById('falcuty').value
+    let content = document.getElementById('NotifContent').value
+    let title = document.getElementById('NotifTitle').value
     socket.emit("messageSent", {
-        title : document.getElementById('NotifTitle').value,
-        content : document.getElementById('NotifContent').value,
-        falcuty : document.getElementById('falcuty').value
+        title : title,
+        content : content,
+        falcuty : falcuty
     })
+    // popup(falcuty,title)
 }
+// function popup(falcuty,title){
+//     document.getElementById('popup').innerHTML = ''
+//     document.getElementById('popup').innerHTML =`
+
+//     <button type="button" class="close" data-dismiss="alert">&times;</button>
+//     ${falcuty} vừa đăng thông báo <a href="#" class="alert-link">${title}</h1></a>
+//     `
+//     document.getElementById('popupdiv').style.display = "block"
+//     console.log('showed')
+// }
