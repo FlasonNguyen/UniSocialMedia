@@ -120,12 +120,12 @@ function postComment() {
 var socket = io('http://localhost:8080')
 
 socket.on("messageSent", (message) => {
-    console.log(message)
+    $.notify(message.falcuty + "Vừa đăng thông báo: "+ message.content)
 })
 
 function sendMessage() {
     console.log('Clicked')
-    socket.emit("messengeSent", {
+    socket.emit("messageSent", {
         title : document.getElementById('NotifTitle').value,
         content : document.getElementById('NotifContent').value,
         falcuty : document.getElementById('falcuty').value
