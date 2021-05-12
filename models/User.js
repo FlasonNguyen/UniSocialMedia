@@ -17,6 +17,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         require: true,
         default: 'student'
+    },
+    falcuty: {
+        type: String,
+        default: ''
     }
 })
 UserSchema.plugin(findOrCreate);

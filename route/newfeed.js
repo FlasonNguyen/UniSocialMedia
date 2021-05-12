@@ -34,15 +34,14 @@ router.get('/', (req, res) => {
     }
 })
 router.post('/create', (req, res) => {
-    if(!req.body.content) {
+    if(!req.body.postcontent) {
         res.send('Write something u noob')
     }
     else{
         const post = new Posts({
-            content: req.body.content,
+            content: req.body.postcontent,
             Owner: req.session.name
         })
-        //console.log(req.body)
         post.save()
             .then(data => {
                 //res.json(data)
@@ -86,7 +85,8 @@ router.post('/createNotification', (req, res) => {
             return res.render('newfeed',{errors: 'Input comment first'})
         }
         let user = undefined
-        //console.log(comment, postId)
+        let falcuty = req.body.falcuty.toString()
+        //console.log(falcuty)
         User.findOne({_id: req.session._id})
         .then(u => {user = u})
         .then(() => {
@@ -94,7 +94,7 @@ router.post('/createNotification', (req, res) => {
                 title: req.body.title,
                 content: req.body.content,
                 Owner: user.name,
-                Falcuty: req.body.falcuty
+                Falcuty: falcuty
                 }
             )
             return Noti.save()
@@ -103,5 +103,33 @@ router.post('/createNotification', (req, res) => {
     } else {
         res.redirect('/login')
     }
+})
+router.post('/delete/:id', (req, res) => {
+    if(!req.params.id) {
+        return res.json({code: 1, message: 'Invalid ID'})
+    }
+    Posts.findOneAndDelete({_id: req.params.id})
+    .then(data => {
+        console.log(data)
+    })
+    return res.json({code: 0, message: 'OK'})
+})
+router.post('/update/:id', (req, res) => {
+    if(!req.params.id) {
+        return res.json({code: 1, message: 'Invalid ID'})
+    }
+    let content = req.body.updatecontent
+    let current = new Date()
+    //console.log(req.body)
+    // Posts.findOne({_id: req.params.id})
+    // .then(data => {
+    //     data.overwrite({content: content, createAt: current})
+    // })
+    Posts.findOne({_id: req.params.id}, (err, doc) => {
+        doc.content = content
+        doc.createAt = current
+        doc.save()
+    } )
+    return res.json({code: 0, message: 'OK'})
 })
 module.exports = router

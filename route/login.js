@@ -8,29 +8,30 @@ const User = require('../models/User')
 
 const loginValidator = require('./validators/loginValidator')
 const registerValidator = require('./validators/registerValidator')
+const { session } = require('passport')
 
 router.get('/', (req, res) => {
     res.render('login')
 })
 router.get('/register', (req, res) => {
-    res.render('admin')
+    res.render('admin',{name: '', email: '', password: ''})
 })
 
 //LOGIN HANDLE
 
 router.post('/', loginValidator, (req, res) => {
     let result = validationResult(req)
-    console.log(result)
+    let errors = []
+    //console.log(result)
     if(result.errors.length === 0) {
         let {email, password} = req.body
         let user = undefined
         let role = undefined
-        let errors = []
 
         User.findOne({email: email})
         .then(u => {
             if(!u) {
-                errors.push('Email không tồn tại')
+                errors.push({ msg: 'Email không tồn tại'})
             }
             role = u.role
             user = u
@@ -40,7 +41,8 @@ router.post('/', loginValidator, (req, res) => {
         .then(passwordMatch => {
             if(!passwordMatch) {
                 //return res.status(401).json({code: 3, message: })
-                return res.render('login',{errors: 'Mật khẩu không đúng'})
+                errors.push({ msg: 'Mật khẩu không đúng'})
+                return res.render('login',{errors: errors})
             }
             req.session._id = user._id
             req.session.role = user.role
@@ -59,8 +61,9 @@ router.post('/', loginValidator, (req, res) => {
             message = messages[m].msg
             break
         }
-        console.log(message)
-        return res.render('login',{errors: message})
+        errors.push({ msg: message})
+        //console.log(errors)
+        return res.render('login',{errors: errors})
         //return res.json({code: 1, message: message})
     }
 })
@@ -69,13 +72,24 @@ router.post('/', loginValidator, (req, res) => {
 
 router.post('/register', registerValidator, (req, res) => {
     let result = validationResult(req)
+    let errors = []
+    let {email, password, name, role, falcuty} = req.body
+    if(!falcuty) {
+        errors.push({msg: 'Please select at least 1 falcuty'})
+        return res.render('admin',({errors: errors, name: name, email: email, password: password}))
+    }
+    else if(!role) {
+        errors.push({msg: 'Please select role'})
+        return res.render('admin',({errors: errors, name: name, email: email, password: password}))
+    }
+    tempfalcuty = falcuty.toString()
+    console.log(tempfalcuty)
     if (result.errors.length === 0) {
-
-        let {email, password, name, role} = req.body
         User.findOne({email: email})
         .then(acc => {
             if (acc) {
-                throw new Error('Tài khoản này đã tồn tại')
+                errors.push({msg: 'Tài khoản này đã tồn tại'})
+                return res.render('admin',{errors: errors, name: name, email: email, password: password})
             }
         })
         .then(() => bcrypt.hash(password, 10))
@@ -85,16 +99,22 @@ router.post('/register', registerValidator, (req, res) => {
                 email: email,
                 password: hashed,
                 name: name,
+                falcuty: tempfalcuty,
                 role: role
             })
+            req.session._id = user._id
+            req.session.role = user.role
+            req.session.name = user.name
             return user.save();
         })
         .then(() => {
             // không cần trả về chi tiết tài khoản nữa
-            return res.redirect('newfeed')
+            //console.log('OKEEE')
+            return res.render('admin',{success: 'ok', name: '', email: '', password: ''})
         })
         .catch(e => {
-            return res.json({code: 2, message: 'Đăng ký tài khoản thất bại: ' +e.message})
+            errors.push({msg: 'Đăng ký tài khoản thất bại: ' + e.message})
+            return res.render('admin',{errors: errors, name: name, email: email, password: password})
         })
     }
     else {
@@ -104,8 +124,12 @@ router.post('/register', registerValidator, (req, res) => {
             message = messages[m].msg
             break
         }
-        return res.json({code: 1, message: message})
+        errors.push({msg: message})
+        res.render('admin',{errors: errors, name: name, email: email, password: password})
     }
 })
-
+router.get('/logout', (req, res) => {
+    req.session.destroy
+    return res.redirect('/login')
+})
 module.exports = router

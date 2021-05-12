@@ -39,6 +39,9 @@ app.use('/newfeed', require('./route/newfeed'))
 app.use('/login',require('./route/login'))
 
 
+const http = require('http').createServer(app)
+const io = require('socket.io')(http)
+
 
 
 mongoose.connect(process.env.MONGODB_CONNECTION,
@@ -50,6 +53,17 @@ mongoose.connect(process.env.MONGODB_CONNECTION,
     .then(() => {
         console.log('CONNECTED....')
         //Start server only after connected to mongodb
-        app.listen(process.env.PORT, () => console.log('http://localhost:'+process.env.PORT+"/login"))
+        http.listen(process.env.PORT, () => {
+            console.log('http://localhost:'+process.env.PORT+"/login")
+
+            io.on("connection", (socket) => {
+                console.log('User '+ socket.id)
+
+                socket.on("messageSent", (message) => {
+                    socket.broadcast.emit("messageSent", message)
+                    console.log(message)
+                })
+            })
+        })
     })
     .catch(e => console.log('Can\'t connect to database '+ e.message))
