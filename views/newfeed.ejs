@@ -302,7 +302,7 @@
                                             <p class="card-text" ><%= comment.content %> </p>
                                             <% if(user.name == comment.Owner) { %>
                                             <div class="card-footer text-muted" style="text-align: right;">
-                                                <input type="hiden" id="CommentId" value="<%= comment._id %> ">
+                                                <input type="hidden" id="CommentId" value="<%= comment._id %> ">
                                                 <button class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
                                                 <button class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
                                             </div>
@@ -451,46 +451,21 @@
                         </a>
                     </div>
                 </div>
-
+                <% for (var l = notifs.length, i = 0; i < l; i++) { %>
+                  <% notifs = notifs.reverse() %> 
+                  <% notif = notifs[i] %> 
+                  <% if(i < 5) { %> 
                 <div class="card mt-3 bg-light">
                     <div class="card-body">
-                      <p class="card-text"><small class="text-muted">[Phòng CTHSSV] 08/05/2021</small></p>
+                      <p class="card-text"><small class="text-muted"><%= notif.falcuty %>  |  <%= notif.createAt %></small></p>
 
-                      <h6 class="card-title" >THÔNG BÁO V/v thay đổi hình thức dạy – học trên nền tảng công nghệ số từ ngày 10/5/2021</h6>
+                      <h6 class="card-title" ><%= notif.title %></h6>
                       
-                      <p class="card-text text-muted" >THÔNG BÁO V/v thay đổi hình thức dạy – học trên nền tảng công nghệ số từ ngày 10/5/2021</p>                   
+                      <p class="card-text text-muted" ><%= notif.content %></p>                   
                     </div>
                 </div>
-
-                <div class="card mt-3 bg-light">
-                    <div class="card-body">
-                      <p class="card-text"><small class="text-muted">[Phòng Đại học] 08/05/2021</small></p>
-
-                      <h6 class="card-title" >Danh sách thi giữa kỳ HK2/2020-2021 - Khóa 24 (Bao gồm SV khóa cũ được hỗ trợ hoãn thi) </h6>
-                      
-                      <p class="card-text text-muted" >Sinh viên xem chi tiết file đính kèm</p>                   
-                    </div>
-                </div>
-
-                <div class="card mt-3 bg-light">
-                    <div class="card-body">
-                      <p class="card-text"><small class="text-muted">[Phòng Đại học] 08/05/2021</small></p>
-
-                      <h6 class="card-title" >Danh sách thi môn thay thế tốt nghiệp HK2/20-21 (Giữa kỳ) - Thi ng</h6>
-                      
-                      <p class="card-text text-muted" >Sinh viên xem chi tiết file đính kèm</p>                   
-                    </div>
-                </div>
-
-                <div class="card mt-3 bg-light">
-                    <div class="card-body">
-                      <p class="card-text"><small class="text-muted">[Phòng CTHSSV] 07/05/2021</small></p>
-
-                      <h6 class="card-title" >Hướng dẫn giám sát phòng chống dịch COVID 19 tại TPHCM cập nhật 12h00 ngày 7/5/2021</h6>
-                      
-                      <p class="card-text text-muted" >Hướng dẫn giám sát phòng chống dịch COVID 19 tại TPHCM cập nhật 12h00 ngày 7/5/2021</p>                   
-                    </div>
-                </div>
+                <% }else break %> 
+                <% } %>
             </div>
         </div>
         

@@ -54,6 +54,28 @@ router.get('/allNotif', (req, res) => {
     })
     .catch(e => console.log(e))
 })
+// router.get('/allNotif/page/:page', (req, res) => {
+//     if(!req.session._id) {
+//         res.redirect('/login')
+//     }
+//     const pageOptions = {
+//         page: parseInt(req.params.page,10) || 10,
+//         limit: 10
+//     }
+//     let notif = Notifications.find()
+//                 .skip(pageOptions.page * pageOptions.limit)
+//                 .limit(pageOptions.limit)
+//                 .exec(doc => console.log(doc))
+//     User.findOne({_id: req.session._id})
+//     .then(u => {
+//         //console.log(u)
+//         res.render('tatcathongbao',{user: u, notifs: notif})
+//     })
+//     .catch(e => console.log(e))
+// })
+router.get('/allNotif/:id', (req, res) => {
+    
+})
 router.post('/create', (req, res) => {
     if(!req.body.postcontent) {
         res.send('Write something u noob')
@@ -76,7 +98,7 @@ router.post('/create', (req, res) => {
 router.post('/postComment', (req, res) => {
     if(req.session._id) {
         if(!req.body.comment || !req.body.postId) {
-            return res.render('newfeed',{errors: 'Input comment first'})
+            return res.render('newfeed',{errors: 'Input comment first', user: u, posts: post, comments: comment, notifs: notif})
         }
         let comment = req.body.comment
         let postId = req.body.postId
@@ -103,7 +125,7 @@ router.post('/postComment', (req, res) => {
 router.post('/createNotification', (req, res) => {
     if(req.session._id) {
         if(!req.body.title || !req.body.content) {
-            return res.render('newfeed',{errors: 'Input comment first'})
+            return res.render('newfeed',{errors: 'Input comment first', user: u, posts: post, comments: comment, notifs: notif})
         }
         let user = undefined
         User.findOne({_id: req.session._id})
@@ -118,7 +140,6 @@ router.post('/createNotification', (req, res) => {
             )
             return Noti.save()
         })
-        .then(data => console.log(data))
         .then(() => { res.redirect('/newfeed')})
     } else {
         res.redirect('/login')
