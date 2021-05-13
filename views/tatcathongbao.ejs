@@ -168,7 +168,7 @@
                         <p class="card-text text-muted" ><%= notif.content %></p>
                       </div>
                       <% if(notif.Owner == user.name) { %>
-                        <button type="button" id="motcaiginonhamlon" data-id="<%= notif._id %>" class="btn btn-danger btn-sm">Delete</button>
+                        <button type="button" id="deleteNotification" data-id="<%= notif._id %>" class="btn btn-danger">Delete</button>
                       <% } %>
                     </div>
                   </td>

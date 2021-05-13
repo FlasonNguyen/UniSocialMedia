@@ -1,6 +1,7 @@
 const express = require('express')
 const { Result } = require('express-validator')
 const { isValidObjectId } = require('mongoose')
+const bcrypt = require('bcrypt')
 const router = express.Router()
 
 const Posts = require('../models/Posts')
@@ -209,6 +210,9 @@ router.post('/delete/:id', (req, res) => {
     return res.json({code: 0, message: 'OK'})
 })
 router.post('/update/:id', (req, res) => {
+    if(!req.session._id) {
+        return res.redirect('login')
+    }
     if(!req.params.id) {
         return res.json({code: 1, message: 'Invalid ID'})
     }
@@ -252,5 +256,34 @@ router.post('/allNotif/:id/delete', (req, res) => {
 })
 router.post('/allNotif/:id/update', (req, res) => {
     
+})
+router.post('/falcutyUpdate', (req, res) => {
+    if(!req.session._id) {
+        return res.redirect('login')
+    }
+    let {password, newpassword} = req.body
+    let user = undefined
+    let role = undefined
+    //console.log(req.body)
+    User.findOne({_id: req.session._id})
+    .then(data => {
+        return bcrypt.compare(password, data.password)
+    })
+    .then(passwordMatch => {
+        if(passwordMatch != true) {
+            res.redirect('/login')
+        }
+        return bcrypt.hash(newpassword, 10)
+    })
+    .then(hashed => {
+        //console.log(hashed)
+        User.findByIdAndUpdate({_id: req.session._id}, {$set: {
+            password: hashed
+        }})
+        .then(data => {
+            //console.log(data)
+            return res.json({code: 0, message: 'Updated ' + data})
+        })
+    })
 })
 module.exports = router

@@ -7,6 +7,29 @@ function multipleFunc() {
 //   });
 $(document).ready(function() {
     $('#table-list').DataTable();
+    $('#deleteNotification').click(e => {
+        const btn = e.target
+        const id = btn.dataset.id
+        console.log(btn.dataset)
+        console.log('Clicked')
+    })
+    $('#updatePassword').click(e => {
+        let btn = e.target
+        let id = btn.dataset.id
+        let password = document.getElementById('password').value
+        let newpassword = document.getElementById('newpassword').value
+        console.log(btn)
+        $.ajax({
+            url: 'http://localhost:8080/newfeed/falcutyUpdate',
+            type: 'POST',
+            data: {
+                password: password,
+                newpassword: newpassword
+            }
+        })
+        .then(data => console.log(data))
+        .catch(e =>console.log(e))
+    })
     $('#updateAccount').click(e => {
         const btn = e.target
         const id = btn.dataset.id
@@ -69,7 +92,7 @@ $(document).ready(function() {
         $('#update-confirmed').attr('data-id', id)
         $('#modalUpdate').modal('show')
     })
-    $('#commentdelete').click(e => {
+    document.getElementById('commentdelete').addEventListener('click', function(e) {
         e.preventDefault()
         const btn = e.target
         console.log(btn)
@@ -128,24 +151,7 @@ $(document).ready(function() {
             //console.log(data)
         })
     })
-    $('#motcaiginonhamlon').click(e => {
-        const btn = e.target
-        const id = btn.dataset.id
-        console.log(btn.dataset)
-        console.log('Clicked')
-        $.ajax({
-            url: 'http://localhost:8080/newfeed/allNotif/'+id+'/delete',
-            type: 'POST',
-            data: {
-                id: id
-            }
-        })
-        .then(data => {
-            console.log(data)
-            window.location.href = 'http://localhost:8080/newfeed/allNotif'
-        })
-        .catch(e => console.log(e))
-    })
+    
   });
 function postNewfeed() {
     var content = document.getElementById('postcontent').value
@@ -198,8 +204,8 @@ function postComment() {
 var socket = io('http://localhost:8080')
 //------------------------------------------------------------------------------ĐOẠN NÀY CẦN COI LẠI À NHA-----------------------------------------------//
 socket.on("messageSent", (message) => {
-    $.notify(message.falcuty + "Vừa đăng thông báo: "+ message.content)
-    //popup(message.falcuty,message.title)
+    $.notify(message.falcuty + " vừa đăng thông báo: "+ message.content )
+    //$('#popupdiv').show()
 })
 
 function sendMessage() {
