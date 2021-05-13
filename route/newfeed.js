@@ -39,6 +39,39 @@ router.get('/', (req, res) => {
         .catch(e => console.log(e))
     }
 })
+router.get('/:name', (req, res) => {
+    if(!req.session._id) {
+        return res.redirect('/login')
+    }
+    if(!req.params.name) {
+        return res.json({code: 1, message: 'Invalid name'})
+    }
+    console.log(req.params)
+    let post = undefined
+    let user = undefined
+    let comment = undefined
+    let notif = undefined
+    Posts.find((err, data) => {
+        if(err) console.log(err)
+        post = data
+    })
+    Comments.find((err, data) => {
+        if(err) console.log(err)
+        comment = data
+    })
+    Notifications.find((err, data) => {
+        if(err) console.log(err)
+        notif = data
+    })
+    User.findOne({_id: req.session._id})
+    .then(data => {
+        user = data
+    })
+    User.findOne({name: req.params.name})
+    .then(data => {
+        return res.render('targetpost',{posts: post, target: data, user: user, comments: comment, notifs: notif})
+    })
+})
 router.get('/allNotif', (req, res) => {
     if(!req.session._id) {
         res.redirect('/login')

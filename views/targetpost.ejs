@@ -202,14 +202,6 @@
 <!-- End Edit Modal -->
 
     <div class="container-fluid">
-        <div class="row" id="popupdiv" hidden>
-            <div class="col-sm-9 col-md-6 col-lg-8 p-3">
-                <div class="alert alert-primary fixed-top" id="popup" role="alert">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    Phòng Đại học vừa đăng thông báo <a href="#" class="alert-link">THÔNG BÁO V/v thay đổi hình thức dạy – học trên nền tảng công nghệ số từ ngày 10/5/2021</h1></a>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-sm-9 col-md-6 col-lg-8 p-3">
                 <!-- <div class="card mt-3 bg-light">
@@ -218,6 +210,7 @@
                     </div>
                 </div> -->
                 <% if (posts) { posts = posts.reverse(); posts.forEach((post, index) => { %>
+                    <% if(post.Owner == target.name) %> 
                 <div class="card mt-3 bg-light">
                   <% if(user.name == post.Owner) { %>
                   <!--Dropdown edit, delete-->
@@ -317,131 +310,6 @@
                     </div>
                 </div>
                 <% }) } %>
-                <div class="card mt-3 bg-light">
-                    <div class="card-body">
-                        
-                      <h6 class="card-title" >Hoàng Thái
-                          <p class="card-text "><small class="text-muted">4 tháng 5 lúc 20:00</small></p>
-                      </h6>
-                      <h6 class="card-subtitle mb-2 text-muted"></h6>
-                      <p class="card-text text-center" ><img src="https://st.quantrimang.com/photos/image/2017/04/08/anh-dai-dien-FB-200.jpg" alt="img"></p>
-                      <div class="bg-white p-2">
-                        <div class="d-flex flex-row fs-12">
-                            <div class="like p-2 cursor"><i class="far fa-thumbs-up"></i><span class="ml-1" style="cursor: pointer;">100 lượt Thích </span></div>
-                            <div class="like p-2 cursor action-collapse" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="#collapse-2"><i class="far fa-comment"></i><span class="ml-1"  style="cursor: pointer;">Bình luận</span></div>
-                        </div>
-                    </div>
-                    <div id="collapse-2" class="bg-light p-2 collapse" data-parent="#myGroup">
-                        <div class="d-flex flex-row align-items-start"><img class="rounded-circle"  src="https://st.quantrimang.com/photos/image/2017/04/08/anh-dai-dien-FB-200.jpg" width="40"><input class="form-control ml-1 shadow-none "></input></div>
-                        <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" type="button">Gửi bình luận</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Hủy</button></div>
-    
-    <br>
-                        <ul class="fb-comments" style="width:100%;">
-                            <li class="list-group-item mt-3">
-                                <h6 class="card-title" >Hoàng Thái
-                                    <p class="card-text"><small class="text-muted">3 tháng 5 lúc 20:00</small></p>
-                                </h6>
-                                <h6 class="card-subtitle mb-2 text-muted"></h6>
-                                <p class="card-text" >Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <div class="card-footer text-muted" style="text-align: right;">
-                                    <button class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
-                                    <button class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
-                              </div>
-                            </li>
-    
-                            <li class="list-group-item mt-3">
-                                <h6 class="card-title" >Nguyễn Phạm Mạnh Cường
-                                    <p class="card-text"><small class="text-muted">5 tháng 5 lúc 04:10</small></p>
-                                </h6>
-                                <h6 class="card-subtitle mb-2 text-muted"></h6>
-                                <p class="card-text" >Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <!-- <div class="card-footer text-muted" style="text-align: right;">
-                                    <button class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
-                                    <button class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
-                                </div> -->
-                            </li>
-                           
-                        </ul>
-    
-                    </div>
-                    
-                    </div>
-                </div>
-                
-                <div class="card mt-3 bg-light ">
-                    <div class="card-body">
-                        
-                      <h6 class="card-title" >Lê Thị Na
-                          <p class="card-text"><small class="text-muted">3 tháng 5 lúc 20:00</small></p>
-                      </h6>
-                      <h6 class="card-subtitle mb-2 text-muted"></h6>
-                      <p class="card-text " >Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <div class="bg-white p-2">
-                        <div class="d-flex flex-row fs-12">
-                            <div class="like p-2 cursor"><i class="far fa-thumbs-up"></i><span class="ml-1" style="cursor: pointer;">100 lượt Thích </span></div>
-                            <div class="like p-2 cursor action-collapse" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="#collapse-3"><i class="far fa-comment"></i><span class="ml-1"  style="cursor: pointer;">Bình luận</span></div>
-                        </div>
-                    </div>
-                    <div id="collapse-3" class="bg-light p-2 collapse" data-parent="#myGroup">
-                        <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="https://st.quantrimang.com/photos/image/2017/04/08/anh-dai-dien-FB-200.jpg" width="40"><input class="form-control ml-1 shadow-none "></input></div>
-                        <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" type="button">Gửi bình luận</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Hủy</button></div>
-    
-    <br>
-                        <ul class="fb-comments" style="width:100%;">
-                            <li class="list-group-item mt-3">
-                                <h6 class="card-title" >Lê Thị Na
-                                    <p class="card-text"><small class="text-muted">3 tháng 5 lúc 20:00</small></p>
-                                </h6>
-                                <h6 class="card-subtitle mb-2 text-muted"></h6>
-                                <p class="card-text" >Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <div class="card-footer text-muted" style="text-align: right;">
-                                    <button class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
-                                    <button class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
-                              </div>
-                            </li>
-    
-                            <li class="list-group-item mt-3">
-                                <h6 class="card-title" >Hoàng Thái
-                                    <p class="card-text"><small class="text-muted">5 tháng 5 lúc 04:10</small></p>
-                                </h6>
-                                <h6 class="card-subtitle mb-2 text-muted"></h6>
-                                <p class="card-text" >Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <!-- <div class="card-footer text-muted" style="text-align: right;">
-                                    <button class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
-                                    <button class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
-                                </div> -->
-                            </li>
-    
-                            <li class="list-group-item mt-3">
-                                <h6 class="card-title" >Huy Trần
-                                    <p class="card-text"><small class="text-muted">5 tháng 5 lúc 04:10</small></p>
-                                </h6>
-                                <h6 class="card-subtitle mb-2 text-muted"></h6>
-                                <p class="card-text" >Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <!-- <div class="card-footer text-muted" style="text-align: right;">
-                                    <button class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
-                                    <button class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
-                                </div> -->
-                            </li>
-    
-                            <li class="list-group-item mt-3">
-                                <h6 class="card-title" >Lê Thị Na
-                                    <p class="card-text"><small class="text-muted">5 tháng 5 lúc 04:10</small></p>
-                                </h6>
-                                <h6 class="card-subtitle mb-2 text-muted"></h6>
-                                <p class="card-text" >Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <!-- <div class="card-footer text-muted" style="text-align: right;">
-                                    <button class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
-                                    <button class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
-                                </div> -->
-                            </li>
-                           
-                        </ul>
-    
-                    </div>
-                    
-                    </div>
-                </div>
             </div>
     
             <div class="col-sm-3 col-md-6 col-lg-4 p-3">
