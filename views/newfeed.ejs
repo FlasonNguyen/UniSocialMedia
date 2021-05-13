@@ -16,6 +16,10 @@
     <script src="http://www.jqueryscript.net/demo/jQuery-Plugin-For-Multi-Select-List-with-Checkboxes-MultiSelect/jquery.multiselect.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js" integrity="sha512-efUTj3HdSPwWJ9gjfGR71X9cvsrthIA78/Fvd/IN+fttQVy7XWkOAXb295j8B3cmm/kFKVxjiNYzKw9IQJHIuQ==" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.7/js/responsive.bootstrap4.min.js"></script>
     <script src="/javascripts/main.js"></script>
 		<script>
 
@@ -54,7 +58,7 @@
 
                   <li class="nav-item dropdown active" style="float: right;">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">
-                      <%= user.name %>
+                      <img class="rounded mr-3" src="<%= user.avatar %> " width="40"><%= user.name %>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit">Chỉnh sửa thông tin</a></li>
@@ -169,27 +173,27 @@
             <form>
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label">Tên hiển thị:</label>
-                <input type="text" class="form-control" id="name">
+                <input type="text" class="form-control" value="<%= user.name %> " id="name">
               </div>
 
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label">Lớp:</label>
-                <input type="text" class="form-control" id="class">
+                <input type="text" class="form-control" value="<%= user.class %> " id="class">
               </div>
 
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label">Khoa:</label>
-                <input type="text" class="form-control" id="falcuty">
+                <input type="text" class="form-control" value="<%= user.falcuty %> " id="falcuty">
               </div>
 
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label">Ảnh đại diện:</label>
-                <input type="file" class="form-control" id="avatar">
+                <input type="text" class="form-control" value="<%= user.avatar %> " id="avatar">
               </div>
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Lưu</button>
+            <button type="button" id="updateAccount" data-id="<%= user._id %>" data-dismiss="modal" class="btn btn-primary">Lưu</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
           </div>
       </div>

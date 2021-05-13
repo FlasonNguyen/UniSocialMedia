@@ -6,6 +6,32 @@ function multipleFunc() {
 //     placeholder: 'Select options'
 //   });
 $(document).ready(function() {
+    $('#table-list').DataTable();
+    $('#updateAccount').click(e => {
+        const btn = e.target
+        const id = btn.dataset.id
+        console.log(btn.dataset)
+        let name = document.getElementById('name').value
+        let lop = document.getElementById('class').value
+        let falcuty = document.getElementById('falcuty').value
+        let avatar = document.getElementById('avatar').value
+        console.log(name + lop + falcuty + avatar)
+        $.ajax({
+            url: 'http://localhost:8080/newfeed/updateAccount',
+            type: 'POST',
+            data: {
+                id: id,
+                name: name,
+                class: lop,
+                falcuty: falcuty,
+                avatar: avatar
+            }
+        })
+        .then(data => {
+            $('a#navbarDropdownMenuLink').html(`<img class="rounded mr-3" src="${avatar}" width="40">${name}`)
+        })
+        .catch(e => console.log(e))
+    })
     $('#post-delete').click(e => {
         const btn = e.target
         
@@ -101,6 +127,24 @@ $(document).ready(function() {
         .done(data => {
             //console.log(data)
         })
+    })
+    $('#motcaiginonhamlon').click(e => {
+        const btn = e.target
+        const id = btn.dataset.id
+        console.log(btn.dataset)
+        console.log('Clicked')
+        $.ajax({
+            url: 'http://localhost:8080/newfeed/allNotif/'+id+'/delete',
+            type: 'POST',
+            data: {
+                id: id
+            }
+        })
+        .then(data => {
+            console.log(data)
+            window.location.href = 'http://localhost:8080/newfeed/allNotif'
+        })
+        .catch(e => console.log(e))
     })
   });
 function postNewfeed() {

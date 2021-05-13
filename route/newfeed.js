@@ -7,6 +7,7 @@ const Posts = require('../models/Posts')
 const User = require('../models/User')
 const Comments = require('../models/Comments')
 const Notifications = require('../models/Notifications')
+const { response } = require('express')
 
 
 
@@ -54,27 +55,23 @@ router.get('/allNotif', (req, res) => {
     })
     .catch(e => console.log(e))
 })
-// router.get('/allNotif/page/:page', (req, res) => {
-//     if(!req.session._id) {
-//         res.redirect('/login')
-//     }
-//     const pageOptions = {
-//         page: parseInt(req.params.page,10) || 10,
-//         limit: 10
-//     }
-//     let notif = Notifications.find()
-//                 .skip(pageOptions.page * pageOptions.limit)
-//                 .limit(pageOptions.limit)
-//                 .exec(doc => console.log(doc))
-//     User.findOne({_id: req.session._id})
-//     .then(u => {
-//         //console.log(u)
-//         res.render('tatcathongbao',{user: u, notifs: notif})
-//     })
-//     .catch(e => console.log(e))
-// })
 router.get('/allNotif/:id', (req, res) => {
-    
+    if(!req.params.id) {
+        return res.json({code: 1, message: 'Invalid ID'})
+    }
+    if(!req.session._id) {
+        return res.redirect('/login')
+    }
+    let user = undefined
+    User.findOne({_id: req.session._id})
+    .then(data => {user = data})
+    Notifications.findOne({_id: req.params.id})
+    .then(data => {
+        return res.render('chitietthongbao',{Notif: data, user: user})
+    })
+    .catch(e => {
+        return res.json({code: 1, message: e.message})
+    })
 })
 router.post('/create', (req, res) => {
     if(!req.body.postcontent) {
@@ -94,6 +91,24 @@ router.post('/create', (req, res) => {
                 res.json({message: err})
             })
         }
+})
+router.post('/updateAccount', (req, res) => {
+    if(!req.session._id) {
+        return res.redirect('login')
+    }
+    let name = req.body.name
+    let lop = req.body.class
+    let falcuty = req.body.falcuty
+    let avatar = req.body.avatar
+    //console.log(req.body)
+    User.findByIdAndUpdate({_id: req.session._id}, {$set: {
+        name: name,
+        class: lop,
+        falcuty: falcuty,
+        avatar: avatar
+    }})
+    .then(data => console.log(data))
+    return res.json({code: 0, message: 'Updated'})
 })
 router.post('/postComment', (req, res) => {
     if(req.session._id) {
@@ -148,6 +163,9 @@ router.post('/createNotification', (req, res) => {
     }
 })
 router.post('/delete/:id', (req, res) => {
+    if(!req.session._id) {
+        return res.redirect('login')
+    }
     if(!req.params.id) {
         return res.json({code: 1, message: 'Invalid ID'})
     }
@@ -185,5 +203,21 @@ router.post('/commentdelete/:id', (req, res) => {
         console.log(data)
     })
     return res.json({code: 0, message: 'OK'})
+})
+router.post('/allNotif/:id/delete', (req, res) => {
+    if(!req.session._id) {
+        return res.redirect('login')
+    }
+    if(!req.params.id) {
+        return res.json({code: 1, message: 'Invalid ID'})
+    }
+    Notifications.findOneAndDelete({_id: req.params.id})
+    .then(data => {
+        console.log(data)
+    })
+    return res.json({code: 0, message: 'OK'})
+})
+router.post('/allNotif/:id/update', (req, res) => {
+    
 })
 module.exports = router

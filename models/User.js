@@ -21,6 +21,14 @@ const UserSchema = new mongoose.Schema({
     falcuty: {
         type: String,
         default: ''
+    },
+    class: {
+        type: String,
+        default: ''
+    },
+    avatar: {
+        type: String,
+        default: 'https://i.stack.imgur.com/l60Hf.png'
     }
 })
 UserSchema.plugin(findOrCreate);
