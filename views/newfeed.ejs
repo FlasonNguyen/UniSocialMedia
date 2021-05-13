@@ -164,36 +164,59 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
+          <% if(user.role == 'student') { %> 
             <h5 class="modal-title" id="exampleModalLabel">Cập nhật thông tin</h5>
+          <% } %>
+          <% if(user.role == 'falcuty') { %> 
+            <h5 class="modal-title" id="exampleModalLabel">Thay đổi mật khẩu</h5>
+          <% } %> 
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <form>
+              <% if(user.role == 'student') { %> 
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label">Tên hiển thị:</label>
-                <input type="text" class="form-control" value="<%= user.name %> " id="name">
+                <input type="text" class="form-control" value="<%= user.name %> " id="name" required>
               </div>
 
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label">Lớp:</label>
-                <input type="text" class="form-control" value="<%= user.class %> " id="class">
+                <input type="text" class="form-control" value="<%= user.class %> " id="class" required>
               </div>
 
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label">Khoa:</label>
-                <input type="text" class="form-control" value="<%= user.falcuty %> " id="falcuty">
+                <input type="text" class="form-control" value="<%= user.falcuty %> " id="falcuty" required>
               </div>
 
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label">Ảnh đại diện:</label>
-                <input type="text" class="form-control" value="<%= user.avatar %> " id="avatar">
+                <input type="text" class="form-control" value="<%= user.avatar %> " id="avatar" required>
               </div>
+              <% } %>
+              <% if(user.role == 'falcuty') { %>
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Nhập mật khẩu cũ:</label>
+                  <input type="text" class="form-control" value="<%= user.falcuty %> " id="password" required>
+                </div>
+  
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Nhập mật khẩu mới</label>
+                  <input type="password" class="form-control" value="<%= user.avatar %> " id="newpassword" required>
+                </div>
+              <% } %>
             </form>
           </div>
           <div class="modal-footer">
+            <% if(user.role == 'student') { %> 
             <button type="button" id="updateAccount" data-id="<%= user._id %>" data-dismiss="modal" class="btn btn-primary">Lưu</button>
+            <% } %>
+            <% if(user.role == 'falcuty') { %> 
+              <button type="button" id="updatePassword" data-id="<%= user._id %>" data-dismiss="modal" class="btn btn-primary">Lưu</button>
+            <% } %>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
           </div>
       </div>
@@ -276,7 +299,7 @@
                 </div>
                 <!--Update Modal-->
                     <div class="card-body">
-                      <h6 class="card-title" ><a href="/newfeed/<%- post.Owner %>"><%- post.Owner %> </a>
+                      <h6 class="card-title" ><a href="/newfeed/timeline/<%- post.Owner %>"><%- post.Owner %> </a>
                           <p class="card-text"><small class="text-muted"><%= post.createAt %> </small></p>
                       </h6>
                       <input type="hidden" id="postId" value="<%= post._id %>">

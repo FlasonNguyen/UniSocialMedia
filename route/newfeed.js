@@ -39,7 +39,7 @@ router.get('/', (req, res) => {
         .catch(e => console.log(e))
     }
 })
-router.get('/:name', (req, res) => {
+router.get('/timeline/:name', (req, res) => {
     if(!req.session._id) {
         return res.redirect('/login')
     }

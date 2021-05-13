@@ -182,27 +182,5 @@
             </tfoot>
         </table>
     </div>
-    <script>
-      $(document).ready(function () {
-        $('#notificationDelete').click(e => {
-        const btn = e.target
-        const id = btn.dataset.id
-        console.log(btn.dataset)
-        console.log('Clicked')
-        $.ajax({
-            url: 'http://localhost:8080/newfeed/allNotif/'+id+'/delete',
-            type: 'POST',
-            data: {
-                id: id
-            }
-        })
-        .then(data => {
-            console.log(data)
-            window.location.href = 'http://localhost:8080/newfeed/allNotif'
-        })
-        .catch(e => console.log(e))
-    })
-      })
-    </script>
 </body>
 </html>

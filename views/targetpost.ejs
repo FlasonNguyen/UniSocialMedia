@@ -210,7 +210,8 @@
                     </div>
                 </div> -->
                 <% if (posts) { posts = posts.reverse(); posts.forEach((post, index) => { %>
-                    <% if(post.Owner == target.name) %> 
+                    <% if(target) { %> 
+                    <% if(post.Owner == target.name) { %> 
                 <div class="card mt-3 bg-light">
                   <% if(user.name == post.Owner) { %>
                   <!--Dropdown edit, delete-->
@@ -309,6 +310,7 @@
                         </div>
                     </div>
                 </div>
+                <% }} %> 
                 <% }) } %>
             </div>
     
