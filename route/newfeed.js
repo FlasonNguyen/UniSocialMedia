@@ -119,7 +119,7 @@ router.post('/create', (req, res) => {
         post.save()
             .then(data => {
                 //res.json(data)
-                res.redirect('/newfeed')
+                res.send(data)
             })
             .catch(err => {
                 res.json({message: err})
@@ -152,7 +152,7 @@ router.post('/postComment', (req, res) => {
         let comment = req.body.comment
         let postId = req.body.postId
         let user = undefined
-        //console.log(comment, postId)
+        console.log(req.body)
         User.findOne({_id: req.session._id})
         .then(u => {
             user = u
@@ -168,9 +168,11 @@ router.post('/postComment', (req, res) => {
             })
             return comment.save();
         })
-        .then(() => {res.redirect('/newfeed')})
+        .then(data => {
+            return res.send(data)
+        })
     } else {
-        res.redirect('/login')
+        return res.redirect('/login')
     }
 })
 router.post('/createNotification', (req, res) => {
@@ -191,7 +193,7 @@ router.post('/createNotification', (req, res) => {
             )
             return Noti.save()
         })
-        .then(() => { res.redirect('/newfeed')})
+        .catch(e => res.json({code: 1, message: e}))
     } else {
         res.redirect('/login')
     }
@@ -205,9 +207,8 @@ router.post('/delete/:id', (req, res) => {
     }
     Posts.findOneAndDelete({_id: req.params.id})
     .then(data => {
-        console.log(data)
+        return res.send(data)
     })
-    return res.json({code: 0, message: 'OK'})
 })
 router.post('/update/:id', (req, res) => {
     if(!req.session._id) {
@@ -223,12 +224,13 @@ router.post('/update/:id', (req, res) => {
     // .then(data => {
     //     data.overwrite({content: content, createAt: current})
     // })
-    Posts.findOne({_id: req.params.id}, (err, doc) => {
-        doc.content = content
-        doc.createAt = current
-        doc.save()
-    } )
-    return res.json({code: 0, message: 'OK'})
+    Posts.findByIdAndUpdate({_id: req.params.id}, {$set: {
+        content: content,
+        createAt: current
+    }})
+    .then(data => {
+        return res.send(data)
+    })
 })
 router.post('/commentdelete/:id', (req, res) => {
     if(!req.params.id) {
@@ -255,7 +257,23 @@ router.post('/allNotif/:id/delete', (req, res) => {
     return res.json({code: 0, message: 'OK'})
 })
 router.post('/allNotif/:id/update', (req, res) => {
-    
+    if(!req.session._id) {
+        return res.redirect('login')
+    }
+    let {id, content, title, falcuty} = req.body
+    console.log(req.body)
+    if(!id || !content || !title || !falcuty) {
+        return res.json({code: 1, message: 'Nothing was commit'})
+    }
+    //console.log(req.body)
+    Notifications.findByIdAndUpdate({_id: id}, {$set: {
+        title: title,
+        content: content,
+        falcuty: falcuty
+    }})
+    .then(data => {
+        return res.send(req.body)
+    })
 })
 router.post('/falcutyUpdate', (req, res) => {
     if(!req.session._id) {

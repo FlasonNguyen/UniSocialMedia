@@ -93,7 +93,7 @@
                 <form>
                     <textarea name="postcontent" id="postcontent" style="border-radius: initial;border: none;outline: none;" class="form-control input-lg p-text-area" rows="2" placeholder="Whats in your mind today?"></textarea>
                     <div class="modal-footer">
-                      <button type="button" onclick="postNewfeed()" data-dismiss="modal" class="btn btn-primary">Đăng bài viết</button>
+                      <button type="button" id="postNewfeed" data-dismiss="modal" class="btn btn-primary">Đăng bài viết</button>
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                     </div>
                 </form>
@@ -231,14 +231,14 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-9 col-md-6 col-lg-8 p-3">
+            <div class="col-sm-9 col-md-6 col-lg-8 p-3" id="postList">
                 <!-- <div class="card mt-3 bg-light">
                     <div class="card-header text-center">
                         <h5>BÀI ĐĂNG MỚI</h5>
                     </div>
                 </div> -->
                 <% if (posts) { posts = posts.reverse(); posts.forEach((post, index) => { %>
-                <div class="card mt-3 bg-light">
+                <div class="card mt-3 bg-light" id="<%= post._id %>">
                   <% if(user.name == post.Owner) { %>
                   <!--Dropdown edit, delete-->
                   <div class="card-header">
@@ -267,7 +267,7 @@
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                          <button type="button" data-id="???" id="btn-delete-confirmed" class="btn btn-primary">Xóa</button>
+                          <button type="button" data-id="???" id="btn-delete-confirmed"data-dismiss="modal" class="btn btn-primary">Xóa</button>
                         </div>
                       </div>
                     </div>
@@ -285,7 +285,7 @@
                           <form>
                               <textarea value="<%= post.content %> " name="updatecontent" id="updatecontent" style="border-radius: initial;border: none;outline: none;" class="form-control input-lg p-text-area" rows="2" placeholder="Whats in your mind today?"></textarea>
                               <div class="modal-footer">
-                                <button type="button" data-id="<%= post._id %> " id="update-confirmed" class="btn btn-primary">Đăng bài viết</button>
+                                <button type="button" data-id="<%= post._id %>" data-dismiss="modal" id="update-confirmed" class="btn btn-primary">Đăng bài viết</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                               </div>
                           </form>
@@ -301,7 +301,7 @@
                       </h6>
                       <input type="hidden" id="postId" value="<%= post._id %>">
                       <h6 class="card-subtitle mb-2 text-muted"></h6>
-                      <p class="card-text" ><%= post.content %> </p>
+                      <p class="card-text" id="<%= post._id %>1311"><%= post.content %> </p>
                         <div class="bg-white p-2">
                             <div class="d-flex flex-row fs-12">
                                 <div class="like p-2 cursor"><i class="far fa-thumbs-up"></i><span class="ml-1" style="cursor: pointer;"><%= post.Likes %>  lượt Thích </span></div>
@@ -310,13 +310,13 @@
                         </div>	
                         <div id="collapse-1<%= post._id %>" class="bg-light p-2 collapse" data-parent="#myGroup">
                             <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="https://st.quantrimang.com/photos/image/2017/04/08/anh-dai-dien-FB-200.jpg" width="40">
-                                <input id="Comment <%= post._id %>" class="form-control ml-1 shadow-none "></input>
-                                <input type="hidden" id="input-comment" value="Comment <%= post._id %>"  >
+                                <input id="Comment" class="form-control ml-1 shadow-none "></input>
+                                <input type="hidden" id="input-comment" value="<%= post._id %>"  >
                             </div>
-                            <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" onclick="postComment();" type="button">Gửi bình luận</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Hủy</button></div>
+                            <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" id="commentSubmit" type="button">Gửi bình luận</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Hủy</button></div>
                             <br>
                             <ul id="<%= post._id %>" class="fb-comments" style="width:100%;">
-                                <% if (comments) { comments.forEach((comment) => { %>
+                                <% if (comments) {comments.reverse(), comments.forEach((comment) => { %>
                                     <% if(comment.PostId == post._id) { %> 
                                         <li class="list-group-item mt-3" id="<%= comment._id %>">
                                             <h6 class="card-title" ><%= comment.Owner %> 
@@ -326,7 +326,7 @@
                                             <p class="card-text" ><%= comment.content %> </p>
                                             <% if(user.name == comment.Owner) { %>
                                             <div class="card-footer text-muted" style="text-align: right;">
-                                                <button type="button" id="commentdelete" data-id="<%= comment._id %>" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
+                                                <button type="button" id="commentdelete" data-id="<%= comment._id %>" class="btn btn-danger btn-sm">Delete</button>
                                             </div>
                                             <% } %>
                                         </li>
@@ -337,131 +337,6 @@
                     </div>
                 </div>
                 <% }) } %>
-                <div class="card mt-3 bg-light">
-                    <div class="card-body">
-                        
-                      <h6 class="card-title" >Hoàng Thái
-                          <p class="card-text "><small class="text-muted">4 tháng 5 lúc 20:00</small></p>
-                      </h6>
-                      <h6 class="card-subtitle mb-2 text-muted"></h6>
-                      <p class="card-text text-center" ><img src="https://st.quantrimang.com/photos/image/2017/04/08/anh-dai-dien-FB-200.jpg" alt="img"></p>
-                      <div class="bg-white p-2">
-                        <div class="d-flex flex-row fs-12">
-                            <div class="like p-2 cursor"><i class="far fa-thumbs-up"></i><span class="ml-1" style="cursor: pointer;">100 lượt Thích </span></div>
-                            <div class="like p-2 cursor action-collapse" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="#collapse-2"><i class="far fa-comment"></i><span class="ml-1"  style="cursor: pointer;">Bình luận</span></div>
-                        </div>
-                    </div>
-                    <div id="collapse-2" class="bg-light p-2 collapse" data-parent="#myGroup">
-                        <div class="d-flex flex-row align-items-start"><img class="rounded-circle"  src="https://st.quantrimang.com/photos/image/2017/04/08/anh-dai-dien-FB-200.jpg" width="40"><input class="form-control ml-1 shadow-none "></input></div>
-                        <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" type="button">Gửi bình luận</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Hủy</button></div>
-    
-    <br>
-                        <ul class="fb-comments" style="width:100%;">
-                            <li class="list-group-item mt-3">
-                                <h6 class="card-title" >Hoàng Thái
-                                    <p class="card-text"><small class="text-muted">3 tháng 5 lúc 20:00</small></p>
-                                </h6>
-                                <h6 class="card-subtitle mb-2 text-muted"></h6>
-                                <p class="card-text" >Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <div class="card-footer text-muted" style="text-align: right;">
-                                    <button class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
-                                    <button class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
-                              </div>
-                            </li>
-    
-                            <li class="list-group-item mt-3">
-                                <h6 class="card-title" >Nguyễn Phạm Mạnh Cường
-                                    <p class="card-text"><small class="text-muted">5 tháng 5 lúc 04:10</small></p>
-                                </h6>
-                                <h6 class="card-subtitle mb-2 text-muted"></h6>
-                                <p class="card-text" >Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <!-- <div class="card-footer text-muted" style="text-align: right;">
-                                    <button class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
-                                    <button class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
-                                </div> -->
-                            </li>
-                           
-                        </ul>
-    
-                    </div>
-                    
-                    </div>
-                </div>
-                
-                <div class="card mt-3 bg-light ">
-                    <div class="card-body">
-                        
-                      <h6 class="card-title" >Lê Thị Na
-                          <p class="card-text"><small class="text-muted">3 tháng 5 lúc 20:00</small></p>
-                      </h6>
-                      <h6 class="card-subtitle mb-2 text-muted"></h6>
-                      <p class="card-text " >Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <div class="bg-white p-2">
-                        <div class="d-flex flex-row fs-12">
-                            <div class="like p-2 cursor"><i class="far fa-thumbs-up"></i><span class="ml-1" style="cursor: pointer;">100 lượt Thích </span></div>
-                            <div class="like p-2 cursor action-collapse" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="#collapse-3"><i class="far fa-comment"></i><span class="ml-1"  style="cursor: pointer;">Bình luận</span></div>
-                        </div>
-                    </div>
-                    <div id="collapse-3" class="bg-light p-2 collapse" data-parent="#myGroup">
-                        <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="https://st.quantrimang.com/photos/image/2017/04/08/anh-dai-dien-FB-200.jpg" width="40"><input class="form-control ml-1 shadow-none "></input></div>
-                        <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" type="button">Gửi bình luận</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Hủy</button></div>
-    
-    <br>
-                        <ul class="fb-comments" style="width:100%;">
-                            <li class="list-group-item mt-3">
-                                <h6 class="card-title" >Lê Thị Na
-                                    <p class="card-text"><small class="text-muted">3 tháng 5 lúc 20:00</small></p>
-                                </h6>
-                                <h6 class="card-subtitle mb-2 text-muted"></h6>
-                                <p class="card-text" >Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <div class="card-footer text-muted" style="text-align: right;">
-                                    <button class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
-                                    <button class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
-                              </div>
-                            </li>
-    
-                            <li class="list-group-item mt-3">
-                                <h6 class="card-title" >Hoàng Thái
-                                    <p class="card-text"><small class="text-muted">5 tháng 5 lúc 04:10</small></p>
-                                </h6>
-                                <h6 class="card-subtitle mb-2 text-muted"></h6>
-                                <p class="card-text" >Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <!-- <div class="card-footer text-muted" style="text-align: right;">
-                                    <button class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
-                                    <button class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
-                                </div> -->
-                            </li>
-    
-                            <li class="list-group-item mt-3">
-                                <h6 class="card-title" >Huy Trần
-                                    <p class="card-text"><small class="text-muted">5 tháng 5 lúc 04:10</small></p>
-                                </h6>
-                                <h6 class="card-subtitle mb-2 text-muted"></h6>
-                                <p class="card-text" >Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <!-- <div class="card-footer text-muted" style="text-align: right;">
-                                    <button class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
-                                    <button class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
-                                </div> -->
-                            </li>
-    
-                            <li class="list-group-item mt-3">
-                                <h6 class="card-title" >Lê Thị Na
-                                    <p class="card-text"><small class="text-muted">5 tháng 5 lúc 04:10</small></p>
-                                </h6>
-                                <h6 class="card-subtitle mb-2 text-muted"></h6>
-                                <p class="card-text" >Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <!-- <div class="card-footer text-muted" style="text-align: right;">
-                                    <button class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
-                                    <button class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
-                                </div> -->
-                            </li>
-                           
-                        </ul>
-    
-                    </div>
-                    
-                    </div>
-                </div>
             </div>
     
             <div class="col-sm-3 col-md-6 col-lg-4 p-3">
@@ -481,7 +356,7 @@
                     <div class="card-body">
                       <p class="card-text"><small class="text-muted"><%= notif.falcuty %>  |  <%= notif.createAt %></small></p>
 
-                      <h6 class="card-title" ><%= notif.title %></h6>
+                      <h6 class="card-title" ><a href="/newfeed/allNotif/<%= notif._id %> "><%= notif.title %></a></h6>
                       
                       <p class="card-text text-muted" ><%= notif.content %></p>                   
                     </div>

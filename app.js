@@ -61,7 +61,7 @@ mongoose.connect(process.env.MONGODB_CONNECTION,
 
                 socket.on("messageSent", (message) => {
                     socket.broadcast.emit("messageSent", message)
-                    console.log(message)
+                    //console.log(message)
                 })
             })
         })
