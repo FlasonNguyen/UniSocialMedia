@@ -1,41 +1,21 @@
-body {
-  font-family: 'Lato', sans-serif;
-}
+
 .main-head {
   height: 150px;
   background: #fff;
 }
-.sidenav {
-  height: 100%;
-  background-color: #000;
-  overflow-x: hidden;
-  padding-top: 20px;
-}
-.main {
-  padding: 0px 10px;
-}
-@media screen and (max-height: 450px) {
-  .sidenav {
-    padding-top: 15px;
-  }
-}
 
-@media screen and (max-width: 450px) {
-  .login-form {
-    margin-top: 10%;
-  }
 
-  .register-form {
-    margin-top: 10%;
-  }
-}
 @media screen and (min-width: 768px) {
   .main {
-    margin-left: 40%;
+    margin-left: 55%;
+    position: fixed;
+    width: 900px;
+    margin-top: -145px;
+
   }
 
   .sidenav {
-    width: 40%;
+    width: 50%;
     position: fixed;
     z-index: 1;
     top: 0;
@@ -55,12 +35,14 @@ body {
   padding: 60px;
   color: #fff;
 }
-.login-main-text h2 {
-  font-weight: 300;
+.login-main-text h1 {
+  font-weight: bold;
+  font-size: 45px;
+
 }
 
 .btn-black {
-  background-color: #000 !important;
+  background-color: rgb(136, 141, 145) !important;
   color: #fff;
 }
 /* custom template */
@@ -293,18 +275,19 @@ textarea.form-control {
   width: 100%;
 }
 body{
-  /* background:url('http://www.wallpaperup.com/uploads/wallpapers/2012/10/21/20181/cad2441dd3252cf53f12154412286ba0.jpg'); */
-background: #43cea2; /* fallback for old browsers */
-background: -webkit-linear-gradient(
-  to right,
-  #185a9d,
-  #43cea2
-); /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(
-  to right,
-  #185a9d,
-  #43cea2
-);
+  font-family: 'Lato', sans-serif;
+    /* background:url('http://www.wallpaperup.com/uploads/wallpapers/2012/10/21/20181/cad2441dd3252cf53f12154412286ba0.jpg'); */
+  background: #43cea2; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #185a9d,
+    #43cea2
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #185a9d,
+    #43cea2
+  );
 }
 
 /*---------------------------------------------------------------------------------------------------*/
