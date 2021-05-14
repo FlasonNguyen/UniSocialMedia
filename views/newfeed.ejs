@@ -20,11 +20,12 @@
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.7/js/responsive.bootstrap4.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/7gg5igpnuouxmebzd0722s6b5flsusfcg3mo3leju6c40cyk/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="/javascripts/main.js"></script>
 		<script>
 
 			tinymce.init({
-			  selector: "textarea#post-info",
+			  selector: "textarea#postcontent",
 			  plugins: "emoticons",
 			  plugins: [
 			  'advlist autolink lists link image charmap print preview anchor',
@@ -315,7 +316,7 @@
                             </div>
                             <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" id="commentSubmit" type="button">Gửi bình luận</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Hủy</button></div>
                             <br>
-                            <ul id="<%= post._id %>" class="fb-comments" style="width:100%;">
+                            <ul id="<%= post._id %>ulul" class="fb-comments" style="width:100%;">
                                 <% if (comments) {comments.reverse(), comments.forEach((comment) => { %>
                                     <% if(comment.PostId == post._id) { %> 
                                         <li class="list-group-item mt-3" id="<%= comment._id %>">

@@ -23,7 +23,7 @@ $(document).ready(function() {
             }
         })
         .done(data => {
-            let html = `
+            let htmlcomment = `
                 <li class="list-group-item mt-3" id="${data._id}">
                     <h6 class="card-title" >${data.Owner}
                         <p class="card-text"><small class="text-muted">${data.createAt} </small></p>
@@ -34,8 +34,8 @@ $(document).ready(function() {
                         <button type="button" id="commentdelete" data-id="${data._id}" class="btn btn-danger btn-sm">Delete</button>
                     </div>
                 </li>`
-            $(`ul#${postId}`).prepend(html)
-            console.log($(`ul#${postId}`).html)
+            $(`ul#${postId}ulul`).prepend(htmlcomment)
+            console.log(data)
         })
     })
     $('#updatePassword').click(e => {
@@ -119,7 +119,6 @@ $(document).ready(function() {
         const btn = e.target
         const id = btn.dataset.id
         $('#update-confirmed').attr('data-id', id)
-        $('#modalUpdate').modal('show')
     })
     $('#commentdelete').click(e => {
         e.preventDefault()
@@ -185,13 +184,15 @@ $(document).ready(function() {
         })
     })
     $('#postNewfeed').click(e => {
-        let content = $('#postcontent').val()
-        console.log(content)
+        // let content = $('#postcontent').val()
+        var myContent = tinymce.get("postcontent").getContent();
+        // console.log(myContent)
+        // console.log(content)
         $.ajax({
             url: '/newfeed/create',
             type: 'POST',
             data: {
-                postcontent: content
+                postcontent: myContent
             }
         })
         .done(data => {
