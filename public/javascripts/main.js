@@ -91,6 +91,7 @@ $(document).ready(function() {
         })
         .then(data => {
             $('a#navbarDropdownMenuLink').html(`<img class="rounded mr-3" src="${avatar}" width="40">${name}`)
+            $('img#userImg').attr('src',`${avatar}`)
         })
         .catch(e => console.log(e))
     })
