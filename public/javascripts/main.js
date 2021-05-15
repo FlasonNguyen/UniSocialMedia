@@ -273,7 +273,7 @@ $(document).ready(function() {
                       </h6>
                       <input type="hidden" id="postId" value="${data._id}">
                       <h6 class="card-subtitle mb-2 text-muted"></h6>
-                      <p class="card-text" >${data.content} </p>
+                      <p class="card-text" id="dataContent" > </p>
                         <div class="bg-white p-2">
                             <div class="d-flex flex-row fs-12">
                                 <div class="like p-2 cursor"><i class="far fa-thumbs-up"></i><span class="ml-1" style="cursor: pointer;">${data.Likes}  lượt Thích </span></div>
@@ -293,6 +293,7 @@ $(document).ready(function() {
                     </div>
                 </div>`
                 $(`div#postList`).prepend(html)
+                $(`p#dataContent`).html(`${data.content}`)
         })
     })
   });
