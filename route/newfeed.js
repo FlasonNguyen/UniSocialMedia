@@ -34,8 +34,7 @@ router.get('/', (req, res) => {
         })
         User.findOne({_id: req.session._id})
         .then(u => {
-            //console.log(u)
-            res.render('newfeed',{user: u, posts: post, comments: comment, notifs: notif})
+            return res.render('newfeed',{user: u, posts: post, comments: comment, notifs: notif})
         })
         .catch(e => console.log(e))
     }
