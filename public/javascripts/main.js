@@ -86,7 +86,7 @@ $(document).ready(function() {
         const id = btn.dataset.id
         console.log('Clicked')
         $('#btn-delete-confirmed').attr('data-id', id)
-        $('#confirm-delete-dialog').fadeIn('slow')
+        $('#confirm-delete-dialog').modal('show')
     })
     $('#btn-delete-confirmed').click(e => {
         e.preventDefault()
