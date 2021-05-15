@@ -371,7 +371,7 @@ function postNewfeed() {
     
 //     ajax.send("comment=" + comment + "&postId=" + postId);
 // }
-var socket = io('http://localhost:8080')
+var socket = io('https://unisocialmedia.herokuapp.com')
 //------------------------------------------------------------------------------ĐOẠN NÀY CẦN COI LẠI À NHA-----------------------------------------------//
 socket.on("messageSent", (message) => {
     $.notify(message.falcuty + " vừa đăng thông báo: "+ message.content )
