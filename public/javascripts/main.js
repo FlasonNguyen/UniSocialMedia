@@ -45,7 +45,7 @@ $(document).ready(function() {
         let newpassword = document.getElementById('newpassword').value
         console.log(btn)
         $.ajax({
-            url: 'http://localhost:8080/newfeed/falcutyUpdate',
+            url: '/newfeed/falcutyUpdate',
             type: 'POST',
             data: {
                 password: password,
@@ -65,7 +65,7 @@ $(document).ready(function() {
         let avatar = document.getElementById('avatar').value
         console.log(name + lop + falcuty + avatar)
         $.ajax({
-            url: 'http://localhost:8080/newfeed/updateAccount',
+            url: '/newfeed/updateAccount',
             type: 'POST',
             data: {
                 id: id,
@@ -97,7 +97,7 @@ $(document).ready(function() {
         const id = btn.dataset.id
         //console.log(id)
         $.ajax({
-            url: 'http://localhost:8080/newfeed/delete/'+id,
+            url: '/newfeed/delete/'+id,
             type: 'POST',
             data: {
                 id: id
@@ -129,7 +129,7 @@ $(document).ready(function() {
         const id = btn.dataset.id
         //console.log(id)
         $.ajax({
-            url: 'http://localhost:8080/newfeed/commentdelete/'+id,
+            url: '/newfeed/commentdelete/'+id,
             type: 'POST',
             data: {
                 id: id
