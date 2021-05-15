@@ -9,7 +9,7 @@ router.get('/',
 router.get('/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
-    req.session._id = req.user._id
+    req.session._id = req.user.id
     req.session.name = req.user.name
     res.redirect('/newfeed')
 });
