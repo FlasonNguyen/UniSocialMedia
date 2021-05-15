@@ -86,7 +86,7 @@ $(document).ready(function() {
         const id = btn.dataset.id
         console.log('Clicked')
         $('#btn-delete-confirmed').attr('data-id', id)
-        $('#confirm-delete-dialog').modal('show')
+        $('#confirm-delete-dialog').fadeIn('slow')
     })
     $('#btn-delete-confirmed').click(e => {
         e.preventDefault()
@@ -119,6 +119,7 @@ $(document).ready(function() {
         const btn = e.target
         const id = btn.dataset.id
         $('#update-confirmed').attr('data-id', id)
+        $('#updateModal').fadeIn('slow')
     })
     $('#commentdelete').click(e => {
         e.preventDefault()
