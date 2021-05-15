@@ -199,7 +199,7 @@ $(document).ready(function() {
     })
     $('#postNewfeed').click(e => {
         // let content = $('#postcontent').val()
-        var myContent = tinymce.get("postcontent").getContent({format: 'raw'});
+        var myContent = tinymce.get("postcontent").getContent({format: 'text'});
          console.log(myContent)
         // console.log(content)
         $.ajax({
