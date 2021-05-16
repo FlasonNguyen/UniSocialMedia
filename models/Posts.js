@@ -7,7 +7,7 @@ const PostsSchema = new mongoose.Schema({
     },
     createAt: {
         type: Date,
-        default: Date.now.toLocaleString().replace(",","").replace(/:.. /," ")
+        default: new Date.today() + new Date().timeNow()
     },
     Likes: {
         type: String,
