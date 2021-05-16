@@ -260,7 +260,7 @@
                       </div>
                       <div class="modal-body">
                           <form>
-                              <textarea value="<%- post.content %> " name="updatecontent" id="updatecontent" style="border-radius: initial;border: none;outline: none;" class="form-control input-lg p-text-area" rows="2" placeholder="Whats in your mind today?"></textarea>
+                              <textarea value="<%= post.content %> " name="updatecontent" id="updatecontent" style="border-radius: initial;border: none;outline: none;" class="form-control input-lg p-text-area" rows="2" placeholder="Whats in your mind today?"></textarea>
                               <div class="modal-footer">
                                 <button type="button" data-id="<%= post._id %> " id="update-confirmed" class="btn btn-primary">Đăng bài viết</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
@@ -278,15 +278,15 @@
                       </h6>
                       <input type="hidden" id="postId" value="<%= post._id %>">
                       <h6 class="card-subtitle mb-2 text-muted"></h6>
-                      <p class="card-text" ><%= post.content %> </p>
+                      <p class="card-text" ><%- post.content %> </p>
                         <div class="bg-white p-2">
                             <div class="d-flex flex-row fs-12">
-                                <div class="like p-2 cursor"><i class="far fa-thumbs-up"></i><span class="ml-1" style="cursor: pointer;"><%= post.Likes %>  lượt Thích </span></div>
+                                <!-- <div class="like p-2 cursor"><i class="far fa-thumbs-up"></i><span class="ml-1" style="cursor: pointer;"><%= post.Likes %>  lượt Thích </span></div> -->
                                 <div class="like p-2 cursor action-collapse" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-1<%= post._id %>" href="#collapse-1<%= post._id %>"><i class="far fa-comment"></i><span class="ml-1"  style="cursor: pointer;">Bình luận</span></div>
                             </div>
                         </div>	
                         <div id="collapse-1<%= post._id %>" class="bg-light p-2 collapse" data-parent="#myGroup">
-                            <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="https://st.quantrimang.com/photos/image/2017/04/08/anh-dai-dien-FB-200.jpg" width="40">
+                            <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="<%= user.avatar %>" width="40">
                                 <input id="Comment <%= post._id %>" class="form-control ml-1 shadow-none "></input>
                                 <input type="hidden" id="input-comment" value="Comment <%= post._id %>"  >
                             </div>
