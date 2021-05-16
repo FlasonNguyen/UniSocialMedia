@@ -221,8 +221,8 @@ $(document).ready(function() {
 
                     
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" id="post-update" data-id="${data._id}">Chỉnh sửa bài viết</a>
-                        <a class="dropdown-item" id="post-delete" data-id="${data._id}">Xóa bài viết</a>
+                        <a class="dropdown-item" id="post-update" data-id="${data._id}" style="cursor: pointer;">Chỉnh sửa bài viết</a>
+                        <a class="dropdown-item" id="post-delete" data-id="${data._id}" style="cursor: pointer;">Xóa bài viết</a>
                       </div>
                     </div>
                   </div>
