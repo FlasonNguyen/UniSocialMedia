@@ -7,7 +7,7 @@ const PostsSchema = new mongoose.Schema({
     },
     createAt: {
         type: Date,
-        default: Date.now
+        default: dateTime
     },
     Likes: {
         type: String,
@@ -21,3 +21,11 @@ const PostsSchema = new mongoose.Schema({
 PostsSchema.plugin(findOrCreate);
 const Posts = mongoose.model('Posts', PostsSchema)
 module.exports = Posts
+
+var today = new Date();
+
+var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
+var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+var dateTime = date+' '+time;
