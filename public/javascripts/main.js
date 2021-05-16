@@ -162,7 +162,8 @@ $(document).ready(function() {
         const btn = e.target
         const id = btn.dataset.id
         console.log(id)
-        updatecontent = document.getElementById('updatecontent').value
+        updatecontent = tinymce.get("updatecontent").getContent({format: 'raw'});
+
         console.log(updatecontent)
         //console.log(updatecontent)
         //console.log('OK')
