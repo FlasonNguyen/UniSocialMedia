@@ -27,7 +27,7 @@
 		<script>
 
 			tinymce.init({
-			  selector: "textarea#post-info",
+			  selector: ".tiny",
 			  plugins: "emoticons",
 			  plugins: [
 			  'advlist autolink lists link image charmap print preview anchor',
@@ -94,7 +94,7 @@
             </div>
             <div class="modal-body">
                 <form>
-                    <textarea name="postcontent" id="postcontent" style="border-radius: initial;border: none;outline: none;" class="form-control input-lg p-text-area" rows="2" placeholder="Whats in your mind today?"></textarea>
+                    <textarea name="postcontent" id="postcontent" style="border-radius: initial;border: none;outline: none;" class="form-control input-lg p-text-area tiny" rows="2" placeholder="Whats in your mind today?"></textarea>
                     <div class="modal-footer">
                       <button type="button" onclick="postNewfeed()" data-dismiss="modal" class="btn btn-primary">Đăng bài viết</button>
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
@@ -260,7 +260,7 @@
                       </div>
                       <div class="modal-body">
                           <form>
-                              <textarea value="<%= post.content %> " name="updatecontent" id="updatecontent" style="border-radius: initial;border: none;outline: none;" class="form-control input-lg p-text-area" rows="2" placeholder="Whats in your mind today?"></textarea>
+                              <textarea value="<%= post.content %> " name="updatecontent" id="updatecontent" style="border-radius: initial;border: none;outline: none;" class="form-control input-lg p-text-area tiny" rows="2" placeholder="Whats in your mind today?"></textarea>
                               <div class="modal-footer">
                                 <button type="button" data-id="<%= post._id %> " id="update-confirmed" class="btn btn-primary">Đăng bài viết</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
