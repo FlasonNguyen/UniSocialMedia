@@ -296,7 +296,9 @@
                                 <input id="Comment" class="form-control ml-1 shadow-none "></input>
                                 <input type="hidden" id="input-comment" value="<%= post._id %>"  >
                             </div>
-                            <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" id="commentSubmit" type="button">Gửi bình luận</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Hủy</button></div>
+                            <div class="mt-2 text-right">
+                              <button class="btn btn-primary btn-sm shadow-none" id="commentSubmit" type="button">Gửi bình luận</button>
+                              <button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Hủy</button></div>
                             <br>
                             <ul id="<%= post._id %>ulul" class="fb-comments" style="width:100%;">
                                 <% if (comments) {comments.reverse(), comments.forEach((comment) => { %>

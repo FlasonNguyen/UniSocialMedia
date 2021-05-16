@@ -50,9 +50,10 @@ $(document).ready(function() {
                     </div>
                 </li>`
             $(`ul#${postId}ulul`).prepend(htmlcomment)
-            commentContent = ''
+            
             console.log(data)
         })
+        document.getElementById('Comment').value = ''
     })
     $('#updatePassword').click(e => {
         let btn = e.target
