@@ -431,4 +431,4 @@ var mm = String(today.getMonth() + 1).padStart(2, '0');
 var yyyy = today.getFullYear();
 
 today = 'Hôm nay là ngày ' + dd + ' tháng ' + mm + ' năm ' + yyyy + '!';
-document.getElementById('date').innerHTML = today;
+document.getElementById('date').innerHTML = `<small>${today}</small>`;
