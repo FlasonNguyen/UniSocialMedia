@@ -163,7 +163,9 @@ $(document).ready(function() {
         const id = btn.dataset.id
         console.log(id)
 
-        updatecontent = document.getElementById('updatecontent').value
+        updatecontent = tinymce.get("updatecontent").getContent({format: 'raw'});
+        tinyMCE.get('updatecontent').setContent('');
+
         console.log(updatecontent)
         //console.log(updatecontent)
         //console.log('OK')
@@ -176,7 +178,6 @@ $(document).ready(function() {
             }
         })
         .then(data => {
-            $(`p#${id}1311`).html('')
             $(`p#${id}1311`).html(updatecontent)
             console.log(data)
         })
