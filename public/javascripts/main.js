@@ -163,9 +163,7 @@ $(document).ready(function() {
         const id = btn.dataset.id
         console.log(id)
 
-        updatecontent = tinymce.get("updatecontent").getContent({format: 'raw'});
-        tinyMCE.get('updatecontent').setContent('');
-
+        updatecontent = document.getElementById('updatecontent').value
         console.log(updatecontent)
         //console.log(updatecontent)
         //console.log('OK')
