@@ -178,6 +178,7 @@ $(document).ready(function() {
             }
         })
         .then(data => {
+            $(`p#${id}1311`).html('')
             $(`p#${id}1311`).html(updatecontent)
             console.log(data)
         })
