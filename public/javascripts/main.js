@@ -432,10 +432,3 @@ function sendMessage() {
 //     console.log('showed')
 // }
 
-var today = new Date();
-var dd = String(today.getDate()).padStart(2, '0');
-var mm = String(today.getMonth() + 1).padStart(2, '0');
-var yyyy = today.getFullYear();
-
-date = 'Hôm nay là ngày ' + dd + ' tháng ' + mm + ' năm ' + yyyy + '!';
-document.getElementById('date').innerHTML = `<small>${date}</small>`;
