@@ -50,6 +50,7 @@ $(document).ready(function() {
                     </div>
                 </li>`
             $(`ul#${postId}ulul`).prepend(htmlcomment)
+            commentContent = ''
             console.log(data)
         })
     })
