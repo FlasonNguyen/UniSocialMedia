@@ -261,7 +261,7 @@ $(document).ready(function() {
                       </div>
                       <div class="modal-body">
                           <form>
-                              <textarea value="${data.content} " name="updatecontent" id="updatecontent" style="border-radius: initial;border: none;outline: none;" class="form-control input-lg p-text-area" rows="2" placeholder="Whats in your mind today?"></textarea>
+                              <textarea  name="updatecontent" id="updatecontent" style="border-radius: initial;border: none;outline: none;" class="form-control input-lg p-text-area" rows="2" placeholder="Whats in your mind today?"></textarea>
                               <div class="modal-footer">
                                 <button type="button" data-id="${data._id} " id="update-confirmed" class="btn btn-primary">Đăng bài viết</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
