@@ -277,12 +277,11 @@ $(document).ready(function() {
                       <p class="card-text" id="dataContent" style="overflow-y: auto;"> </p>
                         <div class="bg-white p-2">
                             <div class="d-flex flex-row fs-12">
-                                <div class="like p-2 cursor"><i class="far fa-thumbs-up"></i><span class="ml-1" style="cursor: pointer;">${data.Likes}  lượt Thích </span></div>
                                 <div class="like p-2 cursor action-collapse" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-1${data._id}" href="#collapse-1${data._id}"><i class="far fa-comment"></i><span class="ml-1"  style="cursor: pointer;">Bình luận</span></div>
                             </div>
                         </div>	
                         <div id="collapse-1${data._id}" class="bg-light p-2 collapse" data-parent="#myGroup">
-                            <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="https://st.quantrimang.com/photos/image/2017/04/08/anh-dai-dien-FB-200.jpg" width="40">
+                            <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="<%= user.avatar %>" width="40">
                                 <input id="Comment" class="form-control ml-1 shadow-none "></input>
                                 <input type="hidden" id="input-comment" value="${data._id}"  >
                             </div>
