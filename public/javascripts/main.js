@@ -196,8 +196,8 @@ $(document).ready(function() {
             type: 'POST',
             data: {
                 title: title,
-                content: content
-                // falcuty: falcuty
+                content: content,
+                falcuty: falcuty
             }
         })
         .done(data => {
