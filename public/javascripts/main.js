@@ -164,7 +164,7 @@ $(document).ready(function() {
         console.log(id)
 
         updatecontent = tinymce.get("updatecontent").getContent({format: 'raw'});
-        tinyMCE.activeEditor.setContent('');
+        tinyMCE.get('updatecontent').setContent('');
 
         console.log(updatecontent)
         //console.log(updatecontent)
@@ -205,7 +205,7 @@ $(document).ready(function() {
     $('#postNewfeed').click(e => {
         // let content = $('#postcontent').val()
         var myContent = tinymce.get("postcontent").getContent({format: 'raw'});
-        tinyMCE.activeEditor.setContent('');
+        tinyMCE.get('postcontent').setContent('');
         console.log(myContent)
         // console.log(content)
         $.ajax({
