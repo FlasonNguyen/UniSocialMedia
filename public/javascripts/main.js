@@ -281,7 +281,7 @@ $(document).ready(function() {
                             </div>
                         </div>	
                         <div id="collapse-1${data._id}" class="bg-light p-2 collapse" data-parent="#myGroup">
-                            <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="<%= user.avatar %>" width="40">
+                            <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsdD1rK4ZtCJVizS00LaWifgJnY-wzSVBoHw&usqp=CAU" width="40">
                                 <input id="Comment" class="form-control ml-1 shadow-none "></input>
                                 <input type="hidden" id="input-comment" value="${data._id}"  >
                             </div>
