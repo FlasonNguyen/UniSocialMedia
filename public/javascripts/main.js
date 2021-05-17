@@ -8,6 +8,7 @@ function multipleFunc() {
 tinymce.init({
     selector: ".tiny",
     plugins: "emoticons",
+    media_live_embeds: true,
     plugins: [
     'advlist autolink lists link image charmap print preview anchor',
     'searchreplace visualblocks code fullscreen',
