@@ -23,8 +23,6 @@ tinymce.init({
  
 $(document).ready(function() {
     function wait(){
-
-        $.noConflict();
         $('#table-list').DataTable();
       }
     setTimeout(wait,2000)
