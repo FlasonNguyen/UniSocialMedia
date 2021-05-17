@@ -28,7 +28,7 @@
 
 </head>
 <body>
-        <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -211,7 +211,7 @@
                 <div class="card-body">
                   <h5 class="card-title">Chào <b class="text-primary"><%= user.name %></b> đến với hệ thống thông tin sinh viên!</h5>
                 </div>
-                <a href="/login/logout" class="btn btn-danger btn-sm active" role="button" aria-pressed="true">Đăng xuất</a>
+                <p><a href="/login/logout" class="btn btn-danger btn-sm" role="button" aria-pressed="true">Đăng xuất</a></p>
               </div>
             </div>
 
@@ -330,9 +330,9 @@
                 <div class="card-header">
                   <h5 class="card-title text-center">MỤC THÔNG BÁO</h5>
                   
-                  <a href="/newfeed/allNotif">
+                  <a href="/newfeed/allNotif" class="text-center">
                     <p class="card-text text-right btn btn-info btn-sm">Xem tất cả thông báo</p>
-                </a>
+                  </a>
                 </div>
               </div>
                 <!-- <div class="card mt-3 bg-light">
