@@ -205,16 +205,16 @@
 <!-- End Edit Modal -->
 
     <div class="container-fluid">
-        <div class="row" id="popupdiv" hidden>
-            <div class="col-sm-9 col-md-6 col-lg-8 p-3">
-                <div class="alert alert-primary fixed-top" id="popup" role="alert">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    Phòng Đại học vừa đăng thông báo <a href="#" class="alert-link">THÔNG BÁO V/v thay đổi hình thức dạy – học trên nền tảng công nghệ số từ ngày 10/5/2021</h1></a>
-                </div>
-            </div>
-        </div>
         <div class="row">
-            <div class="col-sm-9 col-md-6 col-lg-8 p-3" id="postList">
+            <div class="col-sm-3 col-md-4 p-3">
+              <div class="card mt-3">
+                <div class="card-body">
+                  <h5 class="card-title">Chào <b class="text-primary"><%= user.name %></b> đến với hệ thống thông tin sinh viên!</h5>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-md-4 p-3" id="postList">
                 <!-- <div class="card mt-3 bg-light">
                     <div class="card-header text-center">
                         <h5>BÀI ĐĂNG MỚI</h5>
@@ -324,11 +324,11 @@
                 <% }) } %>
             </div>
     
-            <div class="col-sm-3 col-md-6 col-lg-4 p-3">
+            <div class="col-sm-3 col-md-4 p-3">
               <div class="card mt-3">
-                <div class="card-body">
-                  <h5 class="card-title">Chào <b class="text-primary"><%= user.name %></b> đến với hệ thống thông tin sinh viên!</h5>
-                  <p class="card-text" id="date"></p>
+                <div class="card-header">
+                  <h5 class="card-title">Mục thông báo</h5>
+                  
                   <a href="/newfeed/allNotif">
                     <p class="card-text text-right">Xem thông báo</p>
                 </a>
