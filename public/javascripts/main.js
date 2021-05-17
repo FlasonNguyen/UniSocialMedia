@@ -21,7 +21,13 @@ tinymce.init({
  })
  
 $(document).ready(function() {
-    $('#table-list').DataTable();
+    function wait(){
+
+        $.noConflict();
+        $('##table-list').dataTable();
+      }
+    setTimeout(wait,2000)
+    // $('#table-list').DataTable();
     $('#commentSubmit').click(e => {
         e.preventDefault()
         console.log('clicked')
