@@ -402,7 +402,7 @@ function postNewfeed() {
 var socket = io('https://unisocialmedia.herokuapp.com')
 //------------------------------------------------------------------------------ĐOẠN NÀY CẦN COI LẠI À NHA-----------------------------------------------//
 socket.on("messageSent", (message) => {
-    $.notify(message.falcuty + " vừa đăng thông báo: "+ message.title,'warn' )
+    $.notify(message.falcuty + " vừa đăng thông báo: "+ message.title)
     //$('#popupdiv').show()
 })
 
