@@ -19,7 +19,7 @@ $(document).ready(function() {
     function wait(){
 
         $.noConflict();
-        $('#table-list').dataTable();
+        $('#table-list').DataTable();
       }
     setTimeout(wait,2000)
     // $('#table-list').DataTable();
