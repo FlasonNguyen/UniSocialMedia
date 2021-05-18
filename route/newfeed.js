@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
     else{
         post = undefined
         comment = undefined
-        notif = undefined
+        user = undefined
         Posts.find((err, data) => {
             if(err) console.log(err)
             post = data
@@ -28,13 +28,14 @@ router.get('/', (req, res) => {
             if(err) console.log(err)
             comment = data
         })
-        Notifications.find((err, data) => {
-            if(err) console.log(err)
-            notif = data
-        })
         User.findOne({_id: req.session._id})
         .then(u => {
-            return res.render('newfeed',{user: u, posts: post, comments: comment, notifs: notif})
+            user = u
+            console.log(user)
+        })
+        Notifications.find()
+        .then(data => {
+            return res.render('newfeed',{user: user, posts: post, comments: comment, notifs: data})
         })
         .catch(e => console.log(e))
     }
