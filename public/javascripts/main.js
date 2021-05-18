@@ -443,7 +443,6 @@ function change_left() {
 
 function change_right() {
     $('div').removeClass('slide-left').addClass('slide-right');
-    change_title();
 }
 
 function to_left() {
