@@ -289,7 +289,10 @@ img {
   max-height: 100%;
 }
 
-
+div.maintext {
+  overflow:hidden;
+  
+}
 
 div.slide-right .welcome {
   -moz-animation: 10s slide-right;
