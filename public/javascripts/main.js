@@ -179,10 +179,9 @@ $(document).ready(function() {
         })
         .then(data => {
             $(`p#${id}1311`).html('')
-            $(`p#${id}1311`).html(updatecontent)
+            $(`p#${id}1311`).html('test')
             console.log(data)
         })
-        .then(result => console.log(result))
         .catch(e => console.log(e))
     })
     $('#sendNotif').click(e => {

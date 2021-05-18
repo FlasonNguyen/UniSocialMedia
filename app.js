@@ -6,7 +6,7 @@ const User = require('./models/User')
 require('dotenv').config()
 
 const app = express()
-app.set('view engine', 'ejs')
+app.set('view engine', 'ejs')   
 app.use(express.static(__dirname + '/public'))
 app.use(express.urlencoded({extended: false}))
 
