@@ -289,18 +289,9 @@ img {
   max-height: 100%;
 }
 
-div.maintext {
-  width: 90%;
-  overflow: hidden;
-  margin: 2.5em auto;
-  height: auto;
-  border: 2px solid gray;
-  padding: 1.2em 0;
-  font-size: 1.5em;
-  font-family: 'Agency FB';
-}
 
-div.slide-right h5 {
+
+div.slide-right.welcome {
   -moz-animation: 10s slide-right;
   -webkit-animation: 10s slide-right;
   -o-animation: 10s slide-right;
@@ -308,7 +299,7 @@ div.slide-right h5 {
   margin: 0;
 }
 
-div.slide-left h5 {
+div.slide-left.welcome {
   -moz-animation: 10s slide-left;
   -webkit-animation: 10s slide-left;
   -o-animation: 10s slide-left;
