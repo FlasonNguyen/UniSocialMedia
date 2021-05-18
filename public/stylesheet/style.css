@@ -1,9 +1,7 @@
-
 .main-head {
   height: 150px;
   background: #fff;
 }
-
 
 @media screen and (min-width: 768px) {
   .main {
@@ -11,7 +9,6 @@
     position: fixed;
     width: 900px;
     margin-top: -145px;
-
   }
 
   .sidenav {
@@ -38,7 +35,6 @@
 .login-main-text h1 {
   font-weight: bold;
   font-size: 45px;
-
 }
 
 .btn-black {
@@ -274,21 +270,123 @@ textarea.form-control {
 .col-sm-9.full {
   width: 100%;
 }
-body{
+body {
   font-family: 'Lato', sans-serif;
-    /* background:url('http://www.wallpaperup.com/uploads/wallpapers/2012/10/21/20181/cad2441dd3252cf53f12154412286ba0.jpg'); */
+  /* background:url('http://www.wallpaperup.com/uploads/wallpapers/2012/10/21/20181/cad2441dd3252cf53f12154412286ba0.jpg'); */
   background: #43cea2; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to right,
     #185a9d,
     #43cea2
   ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #185a9d,
-    #43cea2
-  );
+  background: linear-gradient(to right, #185a9d, #43cea2);
 }
 
 /*---------------------------------------------------------------------------------------------------*/
 
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* div.maintext {
+  overflow:hidden;
+  
+}
+
+div.slide-right .welcome {
+  -moz-animation: 10s slide-right;
+  -webkit-animation: 10s slide-right;
+  -o-animation: 10s slide-right;
+  animation: 10s slide-right;
+  margin: 0;
+}
+
+div.slide-left .welcome {
+  -moz-animation: 10s slide-left;
+  -webkit-animation: 10s slide-left;
+  -o-animation: 10s slide-left;
+  animation: 10s slide-left;
+  margin: 0;
+}
+@-webkit-keyframes slide-right {
+  from {
+    margin-left: 100%;
+    width: 300%;
+  }
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+@-moz-keyframes slide-right {
+  from {
+    margin-left: 100%;
+    width: 300%;
+  }
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+@-o-keyframes slide-right {
+  from {
+    margin-left: 100%;
+    width: 300%;
+  }
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+@keyframes slide-right {
+  from {
+    margin-left: 100%;
+    width: 300%;
+  }
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+
+@-webkit-keyframes slide-left {
+  from {
+    margin-left: 0%;
+    width: 100%;
+  }
+  to {
+    margin-left: -100%;
+    width: 300%;
+  }
+}
+@-moz-keyframes slide-left {
+  from {
+    margin-left: 0%;
+    width: 100%;
+  }
+  to {
+    margin-left: -100%;
+    width: 300%;
+  }
+}
+@-o-keyframes slide-left {
+  from {
+    margin-left: 0%;
+    width: 100%;
+  }
+  to {
+    margin-left: -100%;
+    width: 300%;
+  }
+}
+@keyframes slide-left {
+  from {
+    margin-left: 0%;
+    width: 100%;
+  }
+  to {
+    margin-left: -100%;
+    width: 300%;
+  }
+} */

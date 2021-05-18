@@ -21,7 +21,7 @@
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.7/js/responsive.bootstrap4.min.js"></script>
-    <script src="https://cdn.tiny.cloud/1/6qusxwrsagjvgmmmqqtq8wk1w4e5fyvyl3nmrgtotg7tx6va/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <!-- <script src="https://cdn.tiny.cloud/1/6qusxwrsagjvgmmmqqtq8wk1w4e5fyvyl3nmrgtotg7tx6va/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> -->
     <script src="/javascripts/main.js"></script>
 
     <!---->
@@ -105,7 +105,7 @@
 
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label">Nội dung:</label>
-                <input id="NotifContent" name="content" type="text" class="form-control">
+                <textarea id="NotifContent" name="content" type="text" class="form-control"></textarea>
               </div>
 
              
@@ -205,16 +205,24 @@
 <!-- End Edit Modal -->
 
     <div class="container-fluid">
-        <div class="row" id="popupdiv" hidden>
-            <div class="col-sm-9 col-md-6 col-lg-8 p-3">
-                <div class="alert alert-primary fixed-top" id="popup" role="alert">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    Phòng Đại học vừa đăng thông báo <a href="#" class="alert-link">THÔNG BÁO V/v thay đổi hình thức dạy – học trên nền tảng công nghệ số từ ngày 10/5/2021</h1></a>
-                </div>
+        <!-- <div class="row">
+          <div class="col p-3">
+
+            <div class="card mt-3">
+
+              <div class="card-body maintext slide-right" >
+                <h5 class="card-title welcome">Chào mừng <b class="text-primary"><%= user.name %></b> đến với hệ thống thông tin sinh viên!</h5>
+              </div>
+              
             </div>
-        </div>
+
+          </div>
+        </div> -->
+
         <div class="row">
-            <div class="col-sm-9 col-md-6 col-lg-8 p-3" id="postList">
+            
+
+            <div class="col-sm-7 " id="postList">
                 <!-- <div class="card mt-3 bg-light">
                     <div class="card-header text-center">
                         <h5>BÀI ĐĂNG MỚI</h5>
@@ -279,16 +287,16 @@
                 </div>
                 <!--Update Modal-->
                     <div class="card-body">
-                      <h6 class="card-title" ><a href="/newfeed/timeline/<%- post.Owner %>"><%- post.Owner %> </a>
+                      <h6 class="card-title" ><a href="/newfeed/timeline/<%- post.Owner %>" target="_blank"><%- post.Owner %> </a>
                           <p class="card-text"><small class="text-muted"><%= post.createAt %> </small></p>
                       </h6>
                       <input type="hidden" id="postId" value="<%= post._id %>">
                       <h6 class="card-subtitle mb-2 text-muted"></h6>
-                      <p class="card-text" id="<%= post._id %>1311" style="overflow-y: auto;"><%- post.content %></p>
+                      <div class="card-text d-inline-flex p-2 embed-responsive" id="<%= post._id %>1311" ><%- post.content %></div>
                         <div class="bg-white p-2">
                             <div class="d-flex flex-row fs-12">
                                 <!-- <div class="like p-2 cursor"><i class="far fa-thumbs-up"></i><span class="ml-1" style="cursor: pointer;"><%= post.Likes %>  lượt Thích </span></div> -->
-                                <div class="like p-2 cursor action-collapse" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-1<%= post._id %>" href="#collapse-1<%= post._id %>"><i class="far fa-comment"></i><span class="ml-1"  style="cursor: pointer;">Bình luận</span></div>
+                                <div class="like p-2 cursor action-collapse" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-1<%= post._id %>" href="#collapse-1<%= post._id %>" ><i class="far fa-comment"></i><span class="ml-1"  style="cursor: pointer;">Bình luận</span></div>
                             </div>
                         </div>	
                         <div id="collapse-1<%= post._id %>" class="bg-light p-2 collapse" data-parent="#myGroup">
@@ -296,7 +304,9 @@
                                 <input id="Comment" class="form-control ml-1 shadow-none "></input>
                                 <input type="hidden" id="input-comment" value="<%= post._id %>"  >
                             </div>
-                            <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" id="commentSubmit" type="button">Gửi bình luận</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Hủy</button></div>
+                            <div class="mt-2 text-right">
+                              <button class="btn btn-primary btn-sm shadow-none" id="commentSubmit" type="button">Gửi bình luận</button>
+                              <button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Hủy</button></div>
                             <br>
                             <ul id="<%= post._id %>ulul" class="fb-comments" style="width:100%;">
                                 <% if (comments) {comments.reverse(), comments.forEach((comment) => { %>
@@ -322,14 +332,15 @@
                 <% }) } %>
             </div>
     
-            <div class="col-sm-3 col-md-6 col-lg-4 p-3">
+            <div class="col-sm-5 ">
               <div class="card mt-3">
+                <div class="card-header">
+                  <h5 class="card-title text-center">MỤC THÔNG BÁO</h5>
+                </div>
                 <div class="card-body">
-                  <h5 class="card-title">Chào <b class="text-primary"><%= user.name %></b> đến với hệ thống thông tin sinh viên!</h5>
-                  <p class="card-text" id="date"></p>
-                  <a href="/newfeed/allNotif">
-                    <p class="card-text text-right">Xem thông báo</p>
-                </a>
+                  <a href="/newfeed/allNotif" target="_blank" class="text-center">
+                    <p class="card-text text-right font-weight-light float-right">Xem tất cả thông báo</p>
+                  </a>
                 </div>
               </div>
                 <!-- <div class="card mt-3 bg-light">
@@ -346,9 +357,9 @@
                     <div class="card-body">
                       <p class="card-text"><small class="text-muted"><%= notif.falcuty %>  |  <%= notif.createAt %></small></p>
 
-                      <h6 class="card-title" ><a href="/newfeed/allNotif/<%= notif._id %> "><%= notif.title %></a></h6>
+                      <h6 class="card-title" ><a href="/newfeed/allNotif/<%= notif._id %> " target="_blank"><%= notif.title %></a></h6>
                       
-                      <p class="card-text text-muted" ><%= notif.content %></p>                   
+                      <!-- <p class="card-text text-muted" ><%= notif.content %></p>                    -->
                     </div>
                 </div>
                 <% }else break %> 

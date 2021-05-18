@@ -5,13 +5,14 @@ function multipleFunc() {
 //     columns: 4,
 //     placeholder: 'Select options'
 //   });
+
 tinymce.init({
     selector: ".tiny",
-    plugins: "emoticons",
+    media_live_embeds: true,
     plugins: [
     'advlist autolink lists link image charmap print preview anchor',
     'searchreplace visualblocks code fullscreen',
-    'insertdatetime media table paste code help wordcount'
+    'insertdatetime media table paste code help'
     ],
     toolbar: 'undo redo | formatselect | ' +
     'bold italic backcolor | alignleft aligncenter ' +
@@ -21,7 +22,11 @@ tinymce.init({
  })
  
 $(document).ready(function() {
-    $('#table-list').DataTable();
+    function wait(){
+        $('#table-list').DataTable();
+      }
+    setTimeout(wait,2000)
+    // $('#table-list').DataTable();
     $('#commentSubmit').click(e => {
         e.preventDefault()
         console.log('clicked')
@@ -50,8 +55,10 @@ $(document).ready(function() {
                     </div>
                 </li>`
             $(`ul#${postId}ulul`).prepend(htmlcomment)
+            
             console.log(data)
         })
+        document.getElementById('Comment').value = ''
     })
     $('#updatePassword').click(e => {
         let btn = e.target
@@ -178,8 +185,7 @@ $(document).ready(function() {
             }
         })
         .then(data => {
-            $(`p#${id}1311`).html('')
-            $(`p#${id}1311`).html('test')
+            $(`p#${id}1311`).html(updatecontent)
             console.log(data)
         })
         .catch(e => console.log(e))
@@ -393,7 +399,7 @@ function postNewfeed() {
 var socket = io('https://unisocialmedia.herokuapp.com')
 //------------------------------------------------------------------------------ĐOẠN NÀY CẦN COI LẠI À NHA-----------------------------------------------//
 socket.on("messageSent", (message) => {
-    $.notify(message.falcuty + " vừa đăng thông báo: "+ message.content )
+    $.notify(message.falcuty + " vừa đăng thông báo: "+ message.title)
     //$('#popupdiv').show()
 })
 
@@ -430,10 +436,21 @@ function sendMessage() {
 //     console.log('showed')
 // }
 
-var today = new Date();
-var dd = String(today.getDate()).padStart(2, '0');
-var mm = String(today.getMonth() + 1).padStart(2, '0');
-var yyyy = today.getFullYear();
+// function change_left() {
+//     $('div').removeClass('slide-right').addClass('slide-left');
+// }
 
-date = 'Hôm nay là ngày ' + dd + ' tháng ' + mm + ' năm ' + yyyy + '!';
-document.getElementById('date').innerHTML = `<small>${date}</small>`;
+// function change_right() {
+//     $('div').removeClass('slide-left').addClass('slide-right');
+// }
+
+// function to_left() {
+// setInterval(change_left, 10000);
+// };
+
+// function to_right() {
+//     setInterval(change_right, 20000);
+// };
+
+// to_left();
+// to_right();
