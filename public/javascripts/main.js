@@ -22,11 +22,11 @@ tinymce.init({
  })
  
 $(document).ready(function() {
-    // function wait(){
-    //     $('#table-list').DataTable();
-    //   }
-    // setTimeout(wait,2000)
-    $('#table-list').DataTable();
+    function wait(){
+        $('#table-list').DataTable();
+      }
+    setTimeout(wait,2000)
+    // $('#table-list').DataTable();
     $('#commentSubmit').click(e => {
         e.preventDefault()
         console.log('clicked')
