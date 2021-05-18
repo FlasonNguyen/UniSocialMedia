@@ -5,14 +5,13 @@ function multipleFunc() {
 //     columns: 4,
 //     placeholder: 'Select options'
 //   });
-
 tinymce.init({
     selector: ".tiny",
-    media_live_embeds: true,
+    plugins: "emoticons",
     plugins: [
     'advlist autolink lists link image charmap print preview anchor',
     'searchreplace visualblocks code fullscreen',
-    'insertdatetime media table paste code help'
+    'insertdatetime media table paste code help wordcount'
     ],
     toolbar: 'undo redo | formatselect | ' +
     'bold italic backcolor | alignleft aligncenter ' +
@@ -20,13 +19,10 @@ tinymce.init({
     'removeformat | help',
     content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
  })
+ 
 $(document).ready(function() {
-    function wait(){
-        $('#table-list').DataTable();
-      }
-    setTimeout(wait,2000)
-    // $('#table-list').DataTable();
-    $('#commentSubmit').click(e => {
+    $('#table-list').DataTable();
+    $('.commentSubmit').click(e => {
         e.preventDefault()
         console.log('clicked')
         let commentContent = $('#Comment').val()
@@ -54,10 +50,8 @@ $(document).ready(function() {
                     </div>
                 </li>`
             $(`ul#${postId}ulul`).prepend(htmlcomment)
-            
             console.log(data)
         })
-        document.getElementById('Comment').value = ''
     })
     $('#updatePassword').click(e => {
         let btn = e.target
@@ -102,7 +96,7 @@ $(document).ready(function() {
         })
         .catch(e => console.log(e))
     })
-    $('#post-delete').click(e => {
+    $('.post-delete').click(e => {
         const btn = e.target
         
         const id = btn.dataset.id
@@ -129,20 +123,14 @@ $(document).ready(function() {
             $(`div#${id}`).remove()
         })
         .catch(e => console.log(e))
-        // fetch('http://localhost:8080/newfeed/delete/'+id, {
-        //     method: 'POST'
-        // })
-        // .then(res => res.json())
-        // .then(json => console.log(json))
-        // .catch(e => console.log(e))
     })
-    $('#post-update').click(e => {
+    $('.post-update').click(e => {
         const btn = e.target
         const id = btn.dataset.id
         $('#update-confirmed').attr('data-id', id)
         $('#updateModal').fadeIn('slow')
     })
-    $('#commentdelete').click(e => {
+    $('.commentdelete').click(e => {
         e.preventDefault()
         const btn = e.target
         console.log(btn)
@@ -163,7 +151,7 @@ $(document).ready(function() {
         })
         .catch(e => console.log(e))
     })
-    $('#update-confirmed').click(e => {
+    $('.update-confirmed').click(e => {
         e.preventDefault()
         const btn = e.target
         const id = btn.dataset.id
@@ -184,6 +172,7 @@ $(document).ready(function() {
             }
         })
         .then(data => {
+            $(`p#${id}1311`).html('')
             $(`p#${id}1311`).html(updatecontent)
             console.log(data)
         })
@@ -347,21 +336,6 @@ function updateNotification() {
     })
     .catch(e => console.log(e))
 }
-function postNewfeed() {
-    var content = document.getElementById('postcontent').value
-    //console.log(content)
-    $.ajax({
-        url: '/newfeed/create',
-        type: 'POST',
-        data: {
-            postcontent: content
-        }
-    })
-    .done(data => {
-        //console.log(data)
-
-    })
-    }
 // function postComment() {
 //     var inputComment = document.getElementById('input-comment').value
 //     var postId = document.getElementById("postId").value;
@@ -398,7 +372,7 @@ function postNewfeed() {
 var socket = io('https://unisocialmedia.herokuapp.com')
 //------------------------------------------------------------------------------ĐOẠN NÀY CẦN COI LẠI À NHA-----------------------------------------------//
 socket.on("messageSent", (message) => {
-    $.notify(message.falcuty + " vừa đăng thông báo: "+ message.title)
+    $.notify(message.falcuty + " vừa đăng thông báo: "+ message.content )
     //$('#popupdiv').show()
 })
 
@@ -435,21 +409,10 @@ function sendMessage() {
 //     console.log('showed')
 // }
 
-// function change_left() {
-//     $('div').removeClass('slide-right').addClass('slide-left');
-// }
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0');
+var yyyy = today.getFullYear();
 
-// function change_right() {
-//     $('div').removeClass('slide-left').addClass('slide-right');
-// }
-
-// function to_left() {
-// setInterval(change_left, 10000);
-// };
-
-// function to_right() {
-//     setInterval(change_right, 20000);
-// };
-
-// to_left();
-// to_right();
+date = 'Hôm nay là ngày ' + dd + ' tháng ' + mm + ' năm ' + yyyy + '!';
+document.getElementById('date').innerHTML = `<small>${date}</small>`;

@@ -31,12 +31,13 @@ router.get('/', (req, res) => {
         User.findOne({_id: req.session._id})
         .then(u => {
             user = u
-            console.log(user)
+            //console.log(user)
         })
         Notifications.find()
         .then(data => {
             return res.render('newfeed',{user: user, posts: post, comments: comment, notifs: data})
         })
+        
         .catch(e => console.log(e))
     }
 })
@@ -77,15 +78,13 @@ router.get('/allNotif', (req, res) => {
     if(!req.session._id) {
         res.redirect('/login')
     }
-    let notif = undefined
-    Notifications.find((err, data) => {
-        if(err) console.log(err)
-        notif = data
-    })
+    let user = undefined
     User.findOne({_id: req.session._id})
     .then(u => {
-        //console.log(u)
-        res.render('tatcathongbao',{user: u, notifs: notif})
+        Notifications.find()
+        .then(data => {
+            res.render('tatcathongbao',{user: u, notifs: data})
+        })
     })
     .catch(e => console.log(e))
 })
@@ -207,7 +206,9 @@ router.post('/delete/:id', (req, res) => {
     }
     Posts.findOneAndDelete({_id: req.params.id})
     .then(data => {
-        return res.send(data)
+        res.send(data)
+        Comments.find({PostId: data._id})
+        .then(data =>console.log(data))
     })
 })
 router.post('/update/:id', (req, res) => {
@@ -218,7 +219,7 @@ router.post('/update/:id', (req, res) => {
         return res.json({code: 1, message: 'Invalid ID'})
     }
     let content = req.body.updatecontent
-    let current = new Date()
+    let current = new Date().getTime()
     //console.log(req.body)
     // Posts.findOne({_id: req.params.id})
     // .then(data => {

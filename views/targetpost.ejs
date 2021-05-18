@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />	
+    <script src="https://cdn.tiny.cloud/1/6qusxwrsagjvgmmmqqtq8wk1w4e5fyvyl3nmrgtotg7tx6va/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>    
     <link href="http://www.jqueryscript.net/demo/jQuery-Plugin-For-Multi-Select-List-with-Checkboxes-MultiSelect/jquery.multiselect.css" rel="stylesheet" type="text/css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous"></script>    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -23,7 +24,27 @@
     <script src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.7/js/responsive.bootstrap4.min.js"></script>
     <script src="/javascripts/main.js"></script>
-    <!-- <script src="https://cdn.tiny.cloud/1/6qusxwrsagjvgmmmqqtq8wk1w4e5fyvyl3nmrgtotg7tx6va/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>     -->
+		<script>
+
+			tinymce.init({
+			  selector: ".tiny",
+			  plugins: "emoticons",
+			  plugins: [
+			  'advlist autolink lists link image charmap print preview anchor',
+			  'searchreplace visualblocks code fullscreen',
+			  'insertdatetime media table paste code help wordcount'
+			  ],
+			  toolbar: 'undo redo | formatselect | ' +
+			  'bold italic backcolor | alignleft aligncenter ' +
+			  'alignright alignjustify | bullist numlist outdent indent | ' +
+			  'removeformat | help',
+			  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+		   })
+		   
+		  </script>
+    <!---->
+
+    
    
 </head>
 <body>
