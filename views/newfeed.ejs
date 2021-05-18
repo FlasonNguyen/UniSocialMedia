@@ -287,7 +287,7 @@
                 </div>
                 <!--Update Modal-->
                     <div class="card-body">
-                      <h6 class="card-title" ><a href="/newfeed/timeline/<%- post.Owner %>"><%- post.Owner %> </a>
+                      <h6 class="card-title" ><a href="/newfeed/timeline/<%- post.Owner %>" target="_blank"><%- post.Owner %> </a>
                           <p class="card-text"><small class="text-muted"><%= post.createAt %> </small></p>
                       </h6>
                       <input type="hidden" id="postId" value="<%= post._id %>">
@@ -296,7 +296,7 @@
                         <div class="bg-white p-2">
                             <div class="d-flex flex-row fs-12">
                                 <!-- <div class="like p-2 cursor"><i class="far fa-thumbs-up"></i><span class="ml-1" style="cursor: pointer;"><%= post.Likes %>  lượt Thích </span></div> -->
-                                <div class="like p-2 cursor action-collapse" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-1<%= post._id %>" href="#collapse-1<%= post._id %>"><i class="far fa-comment"></i><span class="ml-1"  style="cursor: pointer;">Bình luận</span></div>
+                                <div class="like p-2 cursor action-collapse" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-1<%= post._id %>" href="#collapse-1<%= post._id %>" ><i class="far fa-comment"></i><span class="ml-1"  style="cursor: pointer;">Bình luận</span></div>
                             </div>
                         </div>	
                         <div id="collapse-1<%= post._id %>" class="bg-light p-2 collapse" data-parent="#myGroup">
@@ -338,7 +338,7 @@
                   <h5 class="card-title text-center">MỤC THÔNG BÁO</h5>
                 </div>
                 <div class="card-body">
-                  <a href="/newfeed/allNotif" class="text-center">
+                  <a href="/newfeed/allNotif" target="_blank" class="text-center">
                     <p class="card-text text-right font-weight-light float-right">Xem tất cả thông báo</p>
                   </a>
                 </div>
@@ -357,7 +357,7 @@
                     <div class="card-body">
                       <p class="card-text"><small class="text-muted"><%= notif.falcuty %>  |  <%= notif.createAt %></small></p>
 
-                      <h6 class="card-title" ><a href="/newfeed/allNotif/<%= notif._id %> "><%= notif.title %></a></h6>
+                      <h6 class="card-title" ><a href="/newfeed/allNotif/<%= notif._id %> " target="_blank"><%= notif.title %></a></h6>
                       
                       <!-- <p class="card-text text-muted" ><%= notif.content %></p>                    -->
                     </div>
