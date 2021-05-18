@@ -291,7 +291,7 @@ img {
 
 
 
-div.slide-right.welcome {
+div.slide-right .welcome {
   -moz-animation: 10s slide-right;
   -webkit-animation: 10s slide-right;
   -o-animation: 10s slide-right;
@@ -299,7 +299,7 @@ div.slide-right.welcome {
   margin: 0;
 }
 
-div.slide-left.welcome {
+div.slide-left .welcome {
   -moz-animation: 10s slide-left;
   -webkit-animation: 10s slide-left;
   -o-animation: 10s slide-left;
