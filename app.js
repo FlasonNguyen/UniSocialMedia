@@ -8,7 +8,9 @@ require('dotenv').config()
 const app = express()
 app.set('view engine', 'ejs')
 app.use(express.static(__dirname + '/public'))
-app.use(express.urlencoded({extended: false}))
+app.use(express.json())
+
+app.use(express.urlencoded({extended: true}))
 
 app.use(session({
     secret: "cats",
@@ -16,7 +18,6 @@ app.use(session({
     saveUninitialized: true,
     cookie: { secure: false }
 }))
-app.use(express.json())
 
 
 //--------------------------------GOOGLE LOGIN-----------------------------------
