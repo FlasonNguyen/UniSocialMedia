@@ -207,7 +207,7 @@ router.post('/delete/:id', (req, res) => {
     Posts.findOneAndDelete({_id: req.params.id})
     .then(data => {
         res.send(data)
-        Comments.find({PostId: data._id})
+        Comments.deleteMany({PostId: data._id})
         .then(data =>console.log(data))
     })
 })
