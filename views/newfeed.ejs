@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trang thông báo</title>
-    <!--navbar-->
     <link rel="stylesheet" type="text/css" href="stylesheet/style.css">
     <link rel="icon" type="image/png" href="https://iconarchive.com/download/i85627/graphicloads/100-flat/student.ico">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -21,11 +20,8 @@
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.7/js/responsive.bootstrap4.min.js"></script>
-    <script src="https://cdn.tiny.cloud/1/6qusxwrsagjvgmmmqqtq8wk1w4e5fyvyl3nmrgtotg7tx6va/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-    <script src="/javascripts/main.js"></script>
-
-    <!---->
-
+    <!-- <script src="https://cdn.tiny.cloud/1/k2if69jyfthaxzysrdd1zxqbdtpbn0g06h2ybhj53q6kyykh/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> -->
+    
 </head>
 <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -58,7 +54,7 @@
                     <span aria-hidden="true"> <i class="fas fa-plus fa-sm"></i> Tạo bài viết</span>
                   </button>
                   <% } else { %> 
-                  <button type="button" data-toggle="modal" data-target="#khoa" class="btn btn-sm btn-info ">
+                  <button type="button" data-toggle="modal" data-target="#khoa" class="btn btn-sm btn-info " >
                     <span aria-hidden="true"> <i class="fas fa-plus fa-sm"></i> Tạo thông báo</span>
                   </button>
                   <% } %> 
@@ -74,7 +70,26 @@
             </div>
             <div class="modal-body">
                 <form>
-                    <textarea name="postcontent" id="postcontent" style="border-radius: initial;border: none;outline: none;" class="form-control input-lg p-text-area tiny" rows="2" placeholder="Whats in your mind today?" required></textarea>
+                  <tinymce-editor
+                  placeholder="Đăng bài viết tại đây...?"
+                  name="postcontent" 
+                  id="postcontent"
+                  api-key="k2if69jyfthaxzysrdd1zxqbdtpbn0g06h2ybhj53q6kyykh"                                 
+                  plugins="advlist autolink lists link image charmap print preview anchor
+                  searchreplace visualblocks code fullscreen
+                  insertdatetime media table paste code help wordcount"
+                  toolbar="undo redo | formatselect | bold italic backcolor |
+                  alignleft aligncenter alignright alignjustify |
+                  bullist numlist outdent indent | removeformat | help"
+                  content_style="body
+                  {
+                    font-family:Helvetica,Arial,sans-serif;
+                    font-size:14px
+                  }"
+                  >
+                
+                </tinymce-editor>
+                    <!-- <textarea name="postcontent" id="postcontent" style="border-radius: initial;border: none;outline: none;" class="form-control input-lg p-text-area tiny" rows="2" placeholder="Whats in your mind today?" required></textarea> -->
                     <div class="modal-footer">
                       <button type="button" id="postNewfeed" data-dismiss="modal" class="btn btn-primary">Đăng bài viết</button>
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
@@ -246,6 +261,26 @@
 <!-- End Edit Modal -->
 
     <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-9 col-md-6 col-lg-8 p-3" id="tb">
+            
+        </div>
+    </div>
+      <div class="row">
+        <div class="col p-3">
+
+          <div class="card mt-3">
+
+            <div class="card-body maintext slide-right" >
+              <h5 class="card-title welcome">Chào mừng <b class="text-primary"><%= user.name %></b> đến với hệ thống thông tin sinh viên!</h5>
+            </div>
+            
+          </div>
+
+        </div>
+      </div>
+
+      <!--Socket-->
         <div class="row" id="popupdiv" hidden>
             <div class="col-sm-9 col-md-6 col-lg-8 p-3">
                 <div class="alert alert-primary fixed-top" id="popup" role="alert">
@@ -307,7 +342,7 @@
                       </div>
                       <div class="modal-body">
                           <form>
-                              <textarea name="updatecontent" id="updatecontent" style="border-radius: initial;border: none;outline: none;" class="form-control input-lg p-text-area tiny" rows="2" placeholder="Whats in your mind today?"></textarea>
+                              <textarea name="updatecontent" id="updatecontent" style="border-radius: initial;border: none;outline: none;" class="form-control input-lg p-text-area" rows="2" placeholder="Chỉnh sửa bài viết tại đây..."></textarea>
                               <div class="modal-footer">
                                 <button type="button" data-id="<%= post._id %>" data-dismiss="modal" id="update-confirmed" class="btn btn-primary update-confirmed">Chỉnh sửa bài viết</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
@@ -333,11 +368,33 @@
                             </div>
                         </div>	
                         <div id="collapse-1<%= post._id %>" class="bg-light p-2 collapse" data-parent="#myGroup">
-                            <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="<%= user.avatar %>" width="40">
-                                <input id="Comment" class="form-control ml-1 shadow-none "></input>
-                                <input type="hidden" id="input-comment" value="<%= post._id %>"  >
+                            
+                         
+
+
+                            <div class="input-group mb-3">
+                              
+                              <img class="rounded-circle" src="<%= user.avatar %>" width="52" >
+                             
+                              <input id="Comment" type="text" class="form-control"  placeholder="Nhập bình luận...">
+                              <input type="hidden" id="input-comment" value="<%= post._id %>">
+                              <div class="input-group-append">
+                                <button class="btn btn-primary commentSubmit" id="commentsub">Gửi</button>
+                              </div>
                             </div>
-                            <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none commentSubmit" type="button">Gửi bình luận</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Hủy</button></div>
+
+                            
+                            
+                        
+                            <!-- <div class="d-flex flex-row align-items-start">
+                                <img class="rounded-circle" src="<%= user.avatar %>" width="40">
+                                <input id="Comment" class="form-control ml-1 shadow-none "></input>
+                            </div>
+                            <div class="mt-2 text-right">
+                              <button class="btn btn-primary btn-sm shadow-none commentSubmit" id="commentsub" type="button">Gửi bình luận</button>
+                              <button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Hủy</button>
+                            </div>
+                             -->
                             <br>
                             <ul id="<%= post._id %>ulul" class="fb-comments" style="width:100%;">
                                 <% if (comments) {comments.reverse(), comments.forEach((comment) => { %>
@@ -366,8 +423,9 @@
             <div class="col-sm-3 col-md-6 col-lg-4 p-3">
               <div class="card mt-3">
                 <div class="card-body">
-                  <h5 class="card-title">Chào <b class="text-primary"><%= user.name %></b> đến với hệ thống thông tin sinh viên!</h5>
-                  <p class="card-text" id="date"></p>
+                 
+                  <!-- <h5 class="card-title">Chào <b class="text-primary"><%= user.name %></b> đến với hệ thống thông tin sinh viên!</h5> -->
+                  <h5 class="card-text text-center" id="date"></h5>
                   <a href="/newfeed/allNotif">
                     <p class="card-text text-right">Xem thông báo</p>
                 </a>
@@ -387,9 +445,9 @@
                     <div class="card-body">
                       <p class="card-text"><small class="text-muted"><%= notif.falcuty %>  |  <%= notif.createAt %></small></p>
 
-                      <h6 class="card-title" ><a href="/newfeed/allNotif/<%= notif._id %> "><%= notif.title %></a></h6>
+                      <h6 class="card-title" ><a href="/newfeed/allNotif/<%= notif._id %>"><%= notif.title %></a></h6>
                       
-                      <p class="card-text text-muted" ><%= notif.content %></p>                   
+                      <p class="card-text text-truncate" ><%= notif.content %></p>                   
                     </div>
                 </div>
                 <% }else break %> 
@@ -398,6 +456,8 @@
         </div>
         
     </div>
-    
+  <script src="/javascripts/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tinymce/tinymce-webcomponent@1/dist/tinymce-webcomponent.min.js"></script>
+
   </body>
 </html>

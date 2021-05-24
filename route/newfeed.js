@@ -150,8 +150,8 @@ router.post('/postComment', (req, res) => {
         }
         let comment = req.body.comment
         let postId = req.body.postId
-        let user = undefined
-        console.log(req.body)
+        // let user = undefined
+        // console.log(req.body)
         User.findOne({_id: req.session._id})
         .then(u => {
             user = u
@@ -207,7 +207,7 @@ router.post('/delete/:id', (req, res) => {
     Posts.findOneAndDelete({_id: req.params.id})
     .then(data => {
         res.send(data)
-        Comments.deleteMany({PostId: data._id})
+        Comments.find({PostId: data._id})
         .then(data =>console.log(data))
     })
 })

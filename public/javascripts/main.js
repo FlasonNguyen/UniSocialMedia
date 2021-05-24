@@ -5,30 +5,60 @@ function multipleFunc() {
 //     columns: 4,
 //     placeholder: 'Select options'
 //   });
-tinymce.init({
-    selector: ".tiny",
-    plugins: "emoticons",
-    plugins: [
-    'advlist autolink lists link image charmap print preview anchor',
-    'searchreplace visualblocks code fullscreen',
-    'insertdatetime media table paste code help wordcount'
-    ],
-    toolbar: 'undo redo | formatselect | ' +
-    'bold italic backcolor | alignleft aligncenter ' +
-    'alignright alignjustify | bullist numlist outdent indent | ' +
-    'removeformat | help',
-    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
- })
+// tinymce.init({
+//     selector: ".tiny",
+//     plugins: "emoticons",
+//     plugins: [
+//     'advlist autolink lists link image charmap print preview anchor',
+//     'searchreplace visualblocks code fullscreen',
+//     'insertdatetime media table paste code help wordcount'
+//     ],
+//     toolbar: 'undo redo | formatselect | ' +
+//     'bold italic backcolor | alignleft aligncenter ' +
+//     'alignright alignjustify | bullist numlist outdent indent | ' +
+//     'removeformat | help',
+//     content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+//  })
  
 $(document).ready(function() {
     $('#table-list').DataTable();
+
+    // $('#commentform').on('submit', function (e) {
+    //     e.preventDefault(); 
+    //     var data = {
+    //       comment: $('#Comment').val(),
+    //       postId: $('#input-comment').val()
+    //     };
+    //     $.ajax({
+    //       url: '/newfeed/postComment',
+    //       data: data,
+    //       type: 'POST',
+    //       success: function(data){
+    //         let htmlcomment = `
+    //         <li class="list-group-item mt-3" id="${data._id}">
+    //             <h6 class="card-title" >${data.Owner}
+    //                 <p class="card-text"><small class="text-muted">${data.createAt} </small></p>
+    //             </h6>
+    //             <h6 class="card-subtitle mb-2 text-muted"></h6>
+    //             <p class="card-text" >${data.content} </p>
+    //             <div class="card-footer text-muted" style="text-align: right;">
+    //                 <button type="button" id="commentdelete" data-id="${data._id}" class="btn btn-danger btn-sm">Delete</button>
+    //             </div>
+    //         </li>`
+    //         $(`ul#${postId}ulul`).prepend(htmlcomment)
+    //         }
+    //     })
+    //     .then(data => console.log(data))
+    //     .catch(e =>console.log(e))
+    //   });
+    
     $('.commentSubmit').click(e => {
         e.preventDefault()
-        console.log('clicked')
+        // console.log('clicked')
         let commentContent = $('#Comment').val()
         let postId = $('#input-comment').val()
-        console.log(commentContent)
-        console.log(postId)
+        // console.log(commentContent)
+        // console.log(postId)
         $.ajax({
             url: '/newfeed/postComment',
             type: 'POST',
@@ -46,12 +76,58 @@ $(document).ready(function() {
                     <h6 class="card-subtitle mb-2 text-muted"></h6>
                     <p class="card-text" >${data.content} </p>
                     <div class="card-footer text-muted" style="text-align: right;">
-                        <button type="button" id="commentdelete" data-id="${data._id}" class="btn btn-danger btn-sm">Delete</button>
+                        <button type="button" id="commentdelete" data-id="${data._id}" class="btn btn-danger btn-sm commentdelete">Delete</button>
                     </div>
                 </li>`
+
+                
             $(`ul#${postId}ulul`).prepend(htmlcomment)
-            console.log(data)
+            // console.log(data)
+            document.getElementById('Comment').value = ''
+
+            $('.commentdelete').click(e => {
+                e.preventDefault()
+                const btn = e.target
+                console.log(btn)
+                console.log(btn.dataset)
+                console.log(btn.dataset.id)
+                const id = btn.dataset.id
+                //console.log(id)
+                $.ajax({
+                    url: '/newfeed/commentdelete/'+id,
+                    type: 'POST',
+                    data: {
+                        id: id
+                    }
+                })
+                .then(data => {
+                    console.log(data)
+                    $(`li#${id}`).remove()
+                })
+                .catch(e => console.log(e))
+            })
         })
+    })
+    $('.commentdelete').click(e => {
+        e.preventDefault()
+        const btn = e.target
+        console.log(btn)
+        console.log(btn.dataset)
+        console.log(btn.dataset.id)
+        const id = btn.dataset.id
+        //console.log(id)
+        $.ajax({
+            url: '/newfeed/commentdelete/'+id,
+            type: 'POST',
+            data: {
+                id: id
+            }
+        })
+        .then(data => {
+            console.log(data)
+            $(`li#${id}`).remove()
+        })
+        .catch(e => console.log(e))
     })
     $('#updatePassword').click(e => {
         let btn = e.target
@@ -130,36 +206,14 @@ $(document).ready(function() {
         $('#update-confirmed').attr('data-id', id)
         $('#updateModal').fadeIn('slow')
     })
-    $('.commentdelete').click(e => {
-        e.preventDefault()
-        const btn = e.target
-        console.log(btn)
-        console.log(btn.dataset)
-        console.log(btn.dataset.id)
-        const id = btn.dataset.id
-        //console.log(id)
-        $.ajax({
-            url: '/newfeed/commentdelete/'+id,
-            type: 'POST',
-            data: {
-                id: id
-            }
-        })
-        .then(data => {
-            console.log(data)
-            $(`li#${id}`).remove()
-        })
-        .catch(e => console.log(e))
-    })
+   
     $('.update-confirmed').click(e => {
         e.preventDefault()
         const btn = e.target
         const id = btn.dataset.id
-        console.log(id)
 
-        updatecontent = tinymce.get("updatecontent").getContent({format: 'raw'});
-        tinyMCE.get('updatecontent').setContent('');
-
+        updatecontent = document.getElementById(`updatecontent`).value
+        
         console.log(updatecontent)
         //console.log(updatecontent)
         //console.log('OK')
@@ -172,12 +226,15 @@ $(document).ready(function() {
             }
         })
         .then(data => {
-            $(`p#${id}1311`).html('')
+            // $(`p#${id}1311`).html('')
+
             $(`p#${id}1311`).html(updatecontent)
-            console.log(data)
+            // document.getElementById(`p#${id}1311`).innerHTML = updatecontent
+            document.getElementById(`updatecontent`).value = ''               
         })
         .catch(e => console.log(e))
     })
+})
     $('#sendNotif').click(e => {
         let title = document.getElementById('NotifTitle').value
         let content = document.getElementById('NotifContent').value
@@ -198,9 +255,10 @@ $(document).ready(function() {
     })
     $('#postNewfeed').click(e => {
         // let content = $('#postcontent').val()
-        var myContent = tinymce.get("postcontent").getContent({format: 'raw'});
-        tinyMCE.get('postcontent').setContent('');
-        console.log(myContent)
+        // var myContent = tinymce.get("postcontent").getContent({format: 'raw'});
+        // tinyMCE.get('postcontent').setContent('');
+        var myContent = document.getElementById('postcontent').value
+        console.log()
         // console.log(content)
         $.ajax({
             url: '/newfeed/create',
@@ -210,9 +268,8 @@ $(document).ready(function() {
             }
         })
         .done(data => {
-            //console.log(data)
-            let html = `
-            <div class="card mt-3 bg-light" id="${data._id}">
+            document.getElementById('postcontent').value = ''
+            post = `<div class="card mt-3 bg-light" id="${data._id}">
                   <!--Dropdown edit, delete-->
                   <div class="card-header">
                     <div class="dropdown float-right" data-display="static" >
@@ -220,8 +277,8 @@ $(document).ready(function() {
 
                     
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" id="post-update" data-id="${data._id}" style="cursor: pointer;">Chỉnh sửa bài viết</a>
-                        <a class="dropdown-item" id="post-delete" data-id="${data._id}" style="cursor: pointer;">Xóa bài viết</a>
+                        <a class="dropdown-item post-update" id="post-update" data-toggle="modal" data-target="#modalUpdate" data-id="${data._id}" style="cursor: pointer;">Chỉnh sửa bài viết</a>
+                        <a class="dropdown-item post-delete" id="post-delete" data-toggle="modal" data-target="#confirm-delete-dialog" data-id="${data._id}" style="cursor: pointer;">Xóa bài viết</a>
                       </div>
                     </div>
                   </div>
@@ -240,7 +297,7 @@ $(document).ready(function() {
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                          <button type="button" data-id="???" id="btn-delete-confirmed"data-dismiss="modal" class="btn btn-primary">Xóa</button>
+                          <button type="button" data-id="${data._id}" id="btn-delete-confirmed"data-dismiss="modal" class="btn btn-primary">Xóa</button>
                         </div>
                       </div>
                     </div>
@@ -251,13 +308,13 @@ $(document).ready(function() {
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" style="text-align: center; font-weight: bold; font-size: 30px;">Tạo bài viết</h5>
+                        <h5 class="modal-title" style="text-align: center; font-weight: bold; font-size: 30px;">Chỉnh sửa bài viết</h5>
                       </div>
                       <div class="modal-body">
                           <form>
-                              <textarea  name="updatecontent" id="updatecontent" style="border-radius: initial;border: none;outline: none;" class="form-control input-lg p-text-area" rows="2" placeholder="Whats in your mind today?"></textarea>
+                              <textarea name="updatecontent" id="updatecontent" style="border-radius: initial;border: none;outline: none;" class="form-control input-lg p-text-area " rows="2" placeholder="Chỉnh sửa bài viết tại đây..."></textarea>
                               <div class="modal-footer">
-                                <button type="button" data-id="${data._id} " id="update-confirmed" class="btn btn-primary">Đăng bài viết</button>
+                                <button type="button" data-id="" data-dismiss="modal" id="update-confirmed" class="btn btn-primary update-confirmed">Chỉnh sửa bài viết</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                               </div>
                           </form>
@@ -268,34 +325,165 @@ $(document).ready(function() {
                 </div>
                 <!--Update Modal-->
                     <div class="card-body">
-                      <h6 class="card-title" ><a href="/newfeed/timeline/${data.Owner}">${data.Owner} </a>
-                          <p class="card-text"><small class="text-muted">${data.createAt} </small></p>
+                      <h6 class="card-title" ><a href="/newfeed/timeline/${data.Owner}">${data.Owner}</a>
+                          <p class="card-text"><small class="text-muted">${data.createAt}</small></p>
                       </h6>
                       <input type="hidden" id="postId" value="${data._id}">
                       <h6 class="card-subtitle mb-2 text-muted"></h6>
-                      <p class="card-text" id="dataContent" style="overflow-y: auto;"> </p>
+                      <p class="card-text" id="${data._id}1311" style="overflow-y: auto;">${data.content}</p>
                         <div class="bg-white p-2">
                             <div class="d-flex flex-row fs-12">
+                                <!-- <div class="like p-2 cursor"><i class="far fa-thumbs-up"></i><span class="ml-1" style="cursor: pointer;"><%= post.Likes %>  lượt Thích </span></div> -->
                                 <div class="like p-2 cursor action-collapse" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-1${data._id}" href="#collapse-1${data._id}"><i class="far fa-comment"></i><span class="ml-1"  style="cursor: pointer;">Bình luận</span></div>
                             </div>
                         </div>	
                         <div id="collapse-1${data._id}" class="bg-light p-2 collapse" data-parent="#myGroup">
-                            <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsdD1rK4ZtCJVizS00LaWifgJnY-wzSVBoHw&usqp=CAU" width="40">
-                                <input id="Comment" class="form-control ml-1 shadow-none "></input>
-                                <input type="hidden" id="input-comment" value="${data._id}"  >
+                            
+                         
+
+
+                            <div class="input-group mb-3">
+                              
+                              <img class="rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsdD1rK4ZtCJVizS00LaWifgJnY-wzSVBoHw&usqp=CAU" width="52" >
+                             
+                              <input id="Comment" type="text" class="form-control"  placeholder="Nhập bình luận...">
+                              <input type="hidden" id="input-comment" value="${data._id}">
+                              <div class="input-group-append">
+                                <button class="btn btn-primary commentSubmit" id="commentsub">Gửi</button>
+                              </div>
                             </div>
-                            <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" id="commentSubmit" type="button">Gửi bình luận</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Hủy</button></div>
-                            <br>
-                            <ul id="${data._id}" class="fb-comments" style="width:100%;">
+                                                       
+                           <br>
+                            <ul id="${data._id}ulul" class="fb-comments" style="width:100%;">
+                                        
+                                   
                             </ul>
                         </div>
                     </div>
                 </div>`
-                $(`div#postList`).prepend(html)
-                $(`p#dataContent`).html(`${data.content}`)
+           
+
+
+            $(`div#postList`).prepend(post)
+            $(`p#dataContent`).html(`${data.content}`)
+            $('.commentSubmit').click(e => {
+                e.preventDefault()
+                // console.log('clicked')
+                let commentContent = $('#Comment').val()
+                let postId = $('#input-comment').val()
+                // console.log(commentContent)
+                // console.log(postId)
+                $.ajax({
+                    url: '/newfeed/postComment',
+                    type: 'POST',
+                    data: {
+                        postId: postId,
+                        comment: commentContent
+                    }
+                })
+                .done(data => {
+                    let htmlcomment = `
+                        <li class="list-group-item mt-3" id="${data._id}">
+                            <h6 class="card-title" >${data.Owner}
+                                <p class="card-text"><small class="text-muted">${data.createAt} </small></p>
+                            </h6>
+                            <h6 class="card-subtitle mb-2 text-muted"></h6>
+                            <p class="card-text" >${data.content} </p>
+                            <div class="card-footer text-muted" style="text-align: right;">
+                                <button type="button" id="commentdelete" data-id="${data._id}" class="btn btn-danger btn-sm commentdelete">Delete</button>
+                            </div>
+                        </li>`
+        
+                        
+                    $(`ul#${postId}ulul`).prepend(htmlcomment)
+                    // console.log(data)
+                    document.getElementById('Comment').value = ''
+        
+                    $('.commentdelete').click(e => {
+                        e.preventDefault()
+                        const btn = e.target
+                        console.log(btn)
+                        console.log(btn.dataset)
+                        console.log(btn.dataset.id)
+                        const id = btn.dataset.id
+                        //console.log(id)
+                        $.ajax({
+                            url: '/newfeed/commentdelete/'+id,
+                            type: 'POST',
+                            data: {
+                                id: id
+                            }
+                        })
+                        .then(data => {
+                            console.log(data)
+                            $(`li#${id}`).remove()
+                        })
+                        .catch(e => console.log(e))
+                    })
+                })
+            })
+            $('.post-delete').click(e => {
+                const btn = e.target
+                
+                const id = btn.dataset.id
+                console.log('Clicked')
+                $('#btn-delete-confirmed').attr('data-id', id)
+            })
+            $('#btn-delete-confirmed').click(e => {
+                e.preventDefault()
+                const btn = e.target
+                console.log(btn)
+                console.log(btn.dataset)
+                console.log(btn.dataset.id)
+                const id = btn.dataset.id
+                //console.log(id)
+                $.ajax({
+                    url: '/newfeed/delete/'+id,
+                    type: 'POST',
+                    data: {
+                        id: id
+                    }
+                })
+                .then(data => {
+                    console.log(data)
+                    $(`div#${id}`).remove()
+                })
+                .catch(e => console.log(e))
+            })
+            $('.post-update').click(e => {
+                const btn = e.target
+                const id = btn.dataset.id
+                $('#update-confirmed').attr('data-id', id)
+                $('#updateModal').fadeIn('slow')
+                
+            })
+           
+            $('.update-confirmed').click(e => {
+                e.preventDefault()
+                const btn = e.target
+                const id = btn.dataset.id
+                updatecontent = document.getElementById(`updatecontent`).value
+                console.log(updatecontent)
+                //console.log(updatecontent)
+                //console.log('OK')
+                $.ajax({
+                    url: '/newfeed/update/'+id,
+                    type: 'POST',
+                    data: {
+                        id: id,
+                        updatecontent: updatecontent
+                    }
+                })
+                .then(data => {
+                    $(`p#${id}1311`).html(updatecontent)
+                    // document.getElementById(`p#${id}1311`).innerHTML = updatecontent
+                    document.getElementById(`updatecontent`).value = ''              
+                })
+                .catch(e => console.log(e))
+            })
         })
     })
-  });
+
 function deleteNotification() {
     let id = $('#Notif_id').val()
     $.ajax({
@@ -371,16 +559,16 @@ function updateNotification() {
 // }
 var socket = io('https://unisocialmedia.herokuapp.com')
 //------------------------------------------------------------------------------ĐOẠN NÀY CẦN COI LẠI À NHA-----------------------------------------------//
-socket.on("messageSent", (message) => {
-    $.notify(message.falcuty + " vừa đăng thông báo: "+ message.content )
-    //$('#popupdiv').show()
-})
-
 function sendMessage() {
     console.log('Clicked')
     let falcuty = document.getElementById('falcuty').value
     let content = document.getElementById('NotifContent').value
     let title = document.getElementById('NotifTitle').value
+    console.log(falcuty)
+    console.log(title)
+
+   
+
     $.ajax({
         url: '/newfeed/createNotification',
         type: 'POST',
@@ -388,16 +576,31 @@ function sendMessage() {
             title: title,
             content: content,
             falcuty: falcuty
+
         }
     })
-    .then(data => console.log(data))
+    .then()
     socket.emit("messageSent", {
         title : title,
         content : content,
-        falcuty : falcuty
+        falcuty : falcuty,
+        
     })
+    
     // popup(falcuty,title)
 }
+socket.on("messageSent", (message) => {
+    
+    document.getElementById('tb').innerHTML = 
+    `<div class="alert alert-primary fixed-top" role="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <span><b>${message.falcuty}</b> vừa đăng thông báo <a href="/newfeed/allNotif" class="alert-link">${message.title}</a></span>
+    </div>`
+
+    //$('#popupdiv').show()
+})
+
+
 // function popup(falcuty,title){
 //     document.getElementById('popup').innerHTML = ''
 //     document.getElementById('popup').innerHTML =`
@@ -414,5 +617,25 @@ var dd = String(today.getDate()).padStart(2, '0');
 var mm = String(today.getMonth() + 1).padStart(2, '0');
 var yyyy = today.getFullYear();
 
-date = 'Hôm nay là ngày ' + dd + ' tháng ' + mm + ' năm ' + yyyy + '!';
+date = 'Hôm nay là ngày ' + dd + ' tháng ' + mm + ' năm ' + yyyy;
 document.getElementById('date').innerHTML = `<small>${date}</small>`;
+
+
+function change_left() {
+    $('div').removeClass('slide-right').addClass('slide-left');
+}
+
+function change_right() {
+    $('div').removeClass('slide-left').addClass('slide-right');
+}
+
+function to_left() {
+setInterval(change_left, 10000);
+};
+
+function to_right() {
+    setInterval(change_right, 20000);
+};
+
+to_left();
+to_right();
