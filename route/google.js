@@ -11,7 +11,7 @@ router.get('/callback',
   function(req, res) {
     req.session._id = req.user.id
     req.session.name = req.user.name
-    res.redirect('/newfeed')
+    res.redirect('/dashboard')
 });
 
 module.exports = router

@@ -48,7 +48,7 @@ router.post('/', loginValidator, (req, res) => {
             req.session.role = user.role
             req.session.name = user.name
             console.log(req.session.email)
-            res.redirect('/newfeed')
+            res.redirect('/dashboard')
         })
         .catch(e => {
             //return res.status(401).json({code: 2, message: 'Login thất bại' + e.message})

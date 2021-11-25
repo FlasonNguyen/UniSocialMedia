@@ -55,7 +55,7 @@
               <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/newfeed">Trang chủ</a>
+                    <a class="nav-link active" aria-current="page" href="/dashboard">Trang chủ</a>
                   </li>
 
 
@@ -98,7 +98,7 @@
                 <form>
                     <textarea name="postcontent" id="postcontent" style="border-radius: initial;border: none;outline: none;" class="form-control input-lg p-text-area tiny" rows="2" placeholder="Whats in your mind today?"></textarea>
                     <div class="modal-footer">
-                      <button type="button" onclick="postNewfeed()" data-dismiss="modal" class="btn btn-primary">Đăng bài viết</button>
+                      <button type="button" onclick="postdashboard()" data-dismiss="modal" class="btn btn-primary">Đăng bài viết</button>
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                     </div>
                 </form>
@@ -276,7 +276,7 @@
                 <!--Update Modal-->
                 
                     <div class="card-body">
-                      <h6 class="card-title" ><a href="/newfeed/<%- post.Owner %>"><%- post.Owner %> </a>
+                      <h6 class="card-title" ><a href="/dashboard/<%- post.Owner %>"><%- post.Owner %> </a>
                           <p class="card-text"><small class="text-muted"><%= post.createAt %> </small></p>
                       </h6>
                       <input type="hidden" id="postId" value="<%= post._id %>">
@@ -330,7 +330,7 @@
                 <div class="card mt-3 bg-light">
                     <div class="card-header text-center ">
                         <h5>THÔNG BÁO MỚI</h5>
-                        <a href="/newfeed/allNotif">
+                        <a href="/dashboard/allNotif">
                             <p class="card-text text-right">Xem tất cả</p>
                         </a>
                     </div>

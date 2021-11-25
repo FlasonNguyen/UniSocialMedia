@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
     res.redirect('/login')
 })
 
-app.use('/newfeed', require('./route/newfeed'))
+app.use('/dashboard', require('./route/dashboard'))
 app.use('/login',require('./route/login'))
 
 

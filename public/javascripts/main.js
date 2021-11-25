@@ -30,7 +30,7 @@ $(document).ready(function() {
     //       postId: $('#input-comment').val()
     //     };
     //     $.ajax({
-    //       url: '/newfeed/postComment',
+    //       url: '/dashboard/postComment',
     //       data: data,
     //       type: 'POST',
     //       success: function(data){
@@ -60,7 +60,7 @@ $(document).ready(function() {
         // console.log(commentContent)
         // console.log(postId)
         $.ajax({
-            url: '/newfeed/postComment',
+            url: '/dashboard/postComment',
             type: 'POST',
             data: {
                 postId: postId,
@@ -94,7 +94,7 @@ $(document).ready(function() {
                 const id = btn.dataset.id
                 //console.log(id)
                 $.ajax({
-                    url: '/newfeed/commentdelete/'+id,
+                    url: '/dashboard/commentdelete/'+id,
                     type: 'POST',
                     data: {
                         id: id
@@ -117,7 +117,7 @@ $(document).ready(function() {
         const id = btn.dataset.id
         //console.log(id)
         $.ajax({
-            url: '/newfeed/commentdelete/'+id,
+            url: '/dashboard/commentdelete/'+id,
             type: 'POST',
             data: {
                 id: id
@@ -136,7 +136,7 @@ $(document).ready(function() {
         let newpassword = document.getElementById('newpassword').value
         console.log(btn)
         $.ajax({
-            url: '/newfeed/falcutyUpdate',
+            url: '/dashboard/falcutyUpdate',
             type: 'POST',
             data: {
                 password: password,
@@ -156,7 +156,7 @@ $(document).ready(function() {
         let avatar = document.getElementById('avatar').value
         console.log(name + lop + falcuty + avatar)
         $.ajax({
-            url: '/newfeed/updateAccount',
+            url: '/dashboard/updateAccount',
             type: 'POST',
             data: {
                 id: id,
@@ -188,7 +188,7 @@ $(document).ready(function() {
         const id = btn.dataset.id
         //console.log(id)
         $.ajax({
-            url: '/newfeed/delete/'+id,
+            url: '/dashboard/delete/'+id,
             type: 'POST',
             data: {
                 id: id
@@ -218,7 +218,7 @@ $(document).ready(function() {
         //console.log(updatecontent)
         //console.log('OK')
         $.ajax({
-            url: '/newfeed/update/'+id,
+            url: '/dashboard/update/'+id,
             type: 'POST',
             data: {
                 id: id,
@@ -241,7 +241,7 @@ $(document).ready(function() {
         let falcuty = document.getElementById('falcuty').value
         //$('#khoa').modal('hide')
         $.ajax({
-            url: '/newfeed/createNotification',
+            url: '/dashboard/createNotification',
             type: 'POST',
             data: {
                 title: title,
@@ -253,7 +253,7 @@ $(document).ready(function() {
             //console.log(data)
         })
     })
-    $('#postNewfeed').click(e => {
+    $('#postdashboard').click(e => {
         // let content = $('#postcontent').val()
         // var myContent = tinymce.get("postcontent").getContent({format: 'raw'});
         // tinyMCE.get('postcontent').setContent('');
@@ -261,7 +261,7 @@ $(document).ready(function() {
         console.log()
         // console.log(content)
         $.ajax({
-            url: '/newfeed/create',
+            url: '/dashboard/create',
             type: 'POST',
             data: {
                 postcontent: myContent
@@ -325,7 +325,7 @@ $(document).ready(function() {
                 </div>
                 <!--Update Modal-->
                     <div class="card-body">
-                      <h6 class="card-title" ><a href="/newfeed/timeline/${data.Owner}">${data.Owner}</a>
+                      <h6 class="card-title" ><a href="/dashboard/timeline/${data.Owner}">${data.Owner}</a>
                           <p class="card-text"><small class="text-muted">${data.createAt}</small></p>
                       </h6>
                       <input type="hidden" id="postId" value="${data._id}">
@@ -374,7 +374,7 @@ $(document).ready(function() {
                 // console.log(commentContent)
                 // console.log(postId)
                 $.ajax({
-                    url: '/newfeed/postComment',
+                    url: '/dashboard/postComment',
                     type: 'POST',
                     data: {
                         postId: postId,
@@ -408,7 +408,7 @@ $(document).ready(function() {
                         const id = btn.dataset.id
                         //console.log(id)
                         $.ajax({
-                            url: '/newfeed/commentdelete/'+id,
+                            url: '/dashboard/commentdelete/'+id,
                             type: 'POST',
                             data: {
                                 id: id
@@ -438,7 +438,7 @@ $(document).ready(function() {
                 const id = btn.dataset.id
                 //console.log(id)
                 $.ajax({
-                    url: '/newfeed/delete/'+id,
+                    url: '/dashboard/delete/'+id,
                     type: 'POST',
                     data: {
                         id: id
@@ -467,7 +467,7 @@ $(document).ready(function() {
                 //console.log(updatecontent)
                 //console.log('OK')
                 $.ajax({
-                    url: '/newfeed/update/'+id,
+                    url: '/dashboard/update/'+id,
                     type: 'POST',
                     data: {
                         id: id,
@@ -487,7 +487,7 @@ $(document).ready(function() {
 function deleteNotification() {
     let id = $('#Notif_id').val()
     $.ajax({
-        url: '/newfeed/allNotif/'+id+'/delete',
+        url: '/dashboard/allNotif/'+id+'/delete',
         type: 'POST',
         data: {
             id: id
@@ -495,7 +495,7 @@ function deleteNotification() {
     })
     .then(data => {
         console.log(data)
-        window.location.href = '/newfeed/allNotif'
+        window.location.href = '/dashboard/allNotif'
     })
     .catch(e => console.log(e))
 }
@@ -507,7 +507,7 @@ function updateNotification() {
     let current = new Date().getTime()
     console.log(falcuty)
     $.ajax({
-        url: '/newfeed/allNotif/'+id+'/update',
+        url: '/dashboard/allNotif/'+id+'/update',
         type: 'POST',
         data: {
             id: id,
@@ -530,7 +530,7 @@ function updateNotification() {
 //     var comment = document.getElementById(inputComment).value
 //     console.log(comment)
 //     var ajax = new XMLHttpRequest();
-//     ajax.open('POST', '/newfeed/postComment', true);
+//     ajax.open('POST', '/dashboard/postComment', true);
 //     ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
 //     ajax.onreadystatechange = () => {
@@ -570,7 +570,7 @@ function sendMessage() {
    
 
     $.ajax({
-        url: '/newfeed/createNotification',
+        url: '/dashboard/createNotification',
         type: 'POST',
         data: {
             title: title,
@@ -594,7 +594,7 @@ socket.on("messageSent", (message) => {
     document.getElementById('tb').innerHTML = 
     `<div class="alert alert-primary fixed-top" role="alert">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <span><b>${message.falcuty}</b> vừa đăng thông báo <a href="/newfeed/allNotif" class="alert-link">${message.title}</a></span>
+        <span><b>${message.falcuty}</b> vừa đăng thông báo <a href="/dashboard/allNotif" class="alert-link">${message.title}</a></span>
     </div>`
 
     //$('#popupdiv').show()
