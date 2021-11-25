@@ -19,5 +19,4 @@ const CommentsSchema = new mongoose.Schema({
     }
 })
 CommentsSchema.plugin(findOrCreate);
-const Comments = mongoose.model('Comments', CommentsSchema)
-module.exports = Comments
+module.exports = mongoose.model('Comments', CommentsSchema)

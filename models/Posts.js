@@ -19,5 +19,4 @@ const PostsSchema = new mongoose.Schema({
     }
 })
 PostsSchema.plugin(findOrCreate);
-const Posts = mongoose.model('Posts', PostsSchema)
-module.exports = Posts
+module.exports = mongoose.model('Posts', PostsSchema)

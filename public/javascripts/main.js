@@ -1,64 +1,12 @@
 function multipleFunc() {
     document.getElementById("mySelect").multiple = true;
  }
-//  $('select[multiple]').multiselect({
-//     columns: 4,
-//     placeholder: 'Select options'
-//   });
-// tinymce.init({
-//     selector: ".tiny",
-//     plugins: "emoticons",
-//     plugins: [
-//     'advlist autolink lists link image charmap print preview anchor',
-//     'searchreplace visualblocks code fullscreen',
-//     'insertdatetime media table paste code help wordcount'
-//     ],
-//     toolbar: 'undo redo | formatselect | ' +
-//     'bold italic backcolor | alignleft aligncenter ' +
-//     'alignright alignjustify | bullist numlist outdent indent | ' +
-//     'removeformat | help',
-//     content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-//  })
- 
 $(document).ready(function() {
     $('#table-list').DataTable();
-
-    // $('#commentform').on('submit', function (e) {
-    //     e.preventDefault(); 
-    //     var data = {
-    //       comment: $('#Comment').val(),
-    //       postId: $('#input-comment').val()
-    //     };
-    //     $.ajax({
-    //       url: '/dashboard/postComment',
-    //       data: data,
-    //       type: 'POST',
-    //       success: function(data){
-    //         let htmlcomment = `
-    //         <li class="list-group-item mt-3" id="${data._id}">
-    //             <h6 class="card-title" >${data.Owner}
-    //                 <p class="card-text"><small class="text-muted">${data.createAt} </small></p>
-    //             </h6>
-    //             <h6 class="card-subtitle mb-2 text-muted"></h6>
-    //             <p class="card-text" >${data.content} </p>
-    //             <div class="card-footer text-muted" style="text-align: right;">
-    //                 <button type="button" id="commentdelete" data-id="${data._id}" class="btn btn-danger btn-sm">Delete</button>
-    //             </div>
-    //         </li>`
-    //         $(`ul#${postId}ulul`).prepend(htmlcomment)
-    //         }
-    //     })
-    //     .then(data => console.log(data))
-    //     .catch(e =>console.log(e))
-    //   });
-    
     $('.commentSubmit').click(e => {
         e.preventDefault()
-        // console.log('clicked')
         let commentContent = $('#Comment').val()
         let postId = $('#input-comment').val()
-        // console.log(commentContent)
-        // console.log(postId)
         $.ajax({
             url: '/dashboard/postComment',
             type: 'POST',
@@ -82,7 +30,6 @@ $(document).ready(function() {
 
                 
             $(`ul#${postId}ulul`).prepend(htmlcomment)
-            // console.log(data)
             document.getElementById('Comment').value = ''
 
             $('.commentdelete').click(e => {
@@ -115,7 +62,6 @@ $(document).ready(function() {
         console.log(btn.dataset)
         console.log(btn.dataset.id)
         const id = btn.dataset.id
-        //console.log(id)
         $.ajax({
             url: '/dashboard/commentdelete/'+id,
             type: 'POST',
@@ -186,7 +132,6 @@ $(document).ready(function() {
         console.log(btn.dataset)
         console.log(btn.dataset.id)
         const id = btn.dataset.id
-        //console.log(id)
         $.ajax({
             url: '/dashboard/delete/'+id,
             type: 'POST',
@@ -215,8 +160,6 @@ $(document).ready(function() {
         updatecontent = document.getElementById(`updatecontent`).value
         
         console.log(updatecontent)
-        //console.log(updatecontent)
-        //console.log('OK')
         $.ajax({
             url: '/dashboard/update/'+id,
             type: 'POST',
@@ -226,10 +169,8 @@ $(document).ready(function() {
             }
         })
         .then(data => {
-            // $(`p#${id}1311`).html('')
 
             $(`p#${id}1311`).html(updatecontent)
-            // document.getElementById(`p#${id}1311`).innerHTML = updatecontent
             document.getElementById(`updatecontent`).value = ''               
         })
         .catch(e => console.log(e))
@@ -239,7 +180,6 @@ $(document).ready(function() {
         let title = document.getElementById('NotifTitle').value
         let content = document.getElementById('NotifContent').value
         let falcuty = document.getElementById('falcuty').value
-        //$('#khoa').modal('hide')
         $.ajax({
             url: '/dashboard/createNotification',
             type: 'POST',
@@ -254,12 +194,8 @@ $(document).ready(function() {
         })
     })
     $('#postdashboard').click(e => {
-        // let content = $('#postcontent').val()
-        // var myContent = tinymce.get("postcontent").getContent({format: 'raw'});
-        // tinyMCE.get('postcontent').setContent('');
         var myContent = document.getElementById('postcontent').value
         console.log()
-        // console.log(content)
         $.ajax({
             url: '/dashboard/create',
             type: 'POST',
@@ -476,7 +412,6 @@ $(document).ready(function() {
                 })
                 .then(data => {
                     $(`p#${id}1311`).html(updatecontent)
-                    // document.getElementById(`p#${id}1311`).innerHTML = updatecontent
                     document.getElementById(`updatecontent`).value = ''              
                 })
                 .catch(e => console.log(e))
@@ -524,41 +459,8 @@ function updateNotification() {
     })
     .catch(e => console.log(e))
 }
-// function postComment() {
-//     var inputComment = document.getElementById('input-comment').value
-//     var postId = document.getElementById("postId").value;
-//     var comment = document.getElementById(inputComment).value
-//     console.log(comment)
-//     var ajax = new XMLHttpRequest();
-//     ajax.open('POST', '/dashboard/postComment', true);
-//     ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-//     ajax.onreadystatechange = () => {
-//         if(this.readyState == 4 && this.status == 200) {
-//             var res = JSON.parse(this.responseText);
-
-//             var html = `
-//             <li class="list-group-item mt-3">
-//             <h6 class="card-title" >${res.user.name}
-//                 <p class="card-text"><small class="text-muted">3 tháng 5 lúc 20:00</small></p>
-//             </h6>
-//             <h6 class="card-subtitle mb-2 text-muted"></h6>
-//             <p class="card-text" >${res.comment}</p>
-//             <div class="card-footer text-muted" style="text-align: right;">
-//                 <button class="btn btn-info btn-sm"><i class="far fa-edit"></i></button>
-//                 <button class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
-//             </div>
-//         </li>
-//         `
-//         console.log(res)
-//         document.getElementById(postId).innerHTML = html
-//         }
-//     }
-    
-//     ajax.send("comment=" + comment + "&postId=" + postId);
-// }
-var socket = io('https://unisocialmedia.herokuapp.com')
-//------------------------------------------------------------------------------ĐOẠN NÀY CẦN COI LẠI À NHA-----------------------------------------------//
+//var socket = io('https://unisocialmedia.herokuapp.com')
 function sendMessage() {
     console.log('Clicked')
     let falcuty = document.getElementById('falcuty').value
@@ -586,8 +488,6 @@ function sendMessage() {
         falcuty : falcuty,
         
     })
-    
-    // popup(falcuty,title)
 }
 socket.on("messageSent", (message) => {
     
@@ -596,21 +496,7 @@ socket.on("messageSent", (message) => {
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <span><b>${message.falcuty}</b> vừa đăng thông báo <a href="/dashboard/allNotif" class="alert-link">${message.title}</a></span>
     </div>`
-
-    //$('#popupdiv').show()
 })
-
-
-// function popup(falcuty,title){
-//     document.getElementById('popup').innerHTML = ''
-//     document.getElementById('popup').innerHTML =`
-
-//     <button type="button" class="close" data-dismiss="alert">&times;</button>
-//     ${falcuty} vừa đăng thông báo <a href="#" class="alert-link">${title}</h1></a>
-//     `
-//     document.getElementById('popupdiv').style.display = "block"
-//     console.log('showed')
-// }
 
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');

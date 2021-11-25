@@ -24,5 +24,4 @@ const NotiSchema = new mongoose.Schema({
 
 })
 NotiSchema.plugin(findOrCreate);
-const Notifications = mongoose.model('Notifications', NotiSchema)
-module.exports = Notifications
+module.exports = mongoose.model('Notifications', NotiSchema)

@@ -24,7 +24,7 @@ app.use(express.json())
 app.use(passport.initialize())
 app.use(passport.session())
 
-require('./googleoauth2')
+require('./gmaillogin')
 
 app.use('/auth/google', require('./route/google'))
 
