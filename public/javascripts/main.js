@@ -507,21 +507,21 @@ socket.on("messageSent", (message) => {
 // document.getElementById('date').innerHTML = `<small>${date}</small>`;
 
 
-function change_left() {
-    $('div').removeClass('slide-right').addClass('slide-left');
-}
+// function change_left() {
+//     $('div').removeClass('slide-right').addClass('slide-left');
+// }
 
-function change_right() {
-    $('div').removeClass('slide-left').addClass('slide-right');
-}
+// function change_right() {
+//     $('div').removeClass('slide-left').addClass('slide-right');
+// }
 
-function to_left() {
-setInterval(change_left, 10000);
-};
+// function to_left() {
+// setInterval(change_left, 10000);
+// };
 
-function to_right() {
-    setInterval(change_right, 20000);
-};
+// function to_right() {
+//     setInterval(change_right, 20000);
+// };
 
-to_left();
-to_right();
+// to_left();
+// to_right();
