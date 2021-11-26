@@ -5,15 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STUDENT PORTAL</title>
-    <link rel="stylesheet" type="text/css" href="stylesheet/style.css">
-    <link rel="icon" type="image/png" href="https://iconarchive.com/download/i85627/graphicloads/100-flat/student.ico">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="/stylesheet/style.css">
+    <link rel="icon" type="image/png" href="https://cdn-icons.flaticon.com/png/512/2940/premium/2940652.png?token=exp=1637886285~hmac=d3260b27ee885bc3229a8285ec5844d5">
+   
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js" integrity="sha512-efUTj3HdSPwWJ9gjfGR71X9cvsrthIA78/Fvd/IN+fttQVy7XWkOAXb295j8B3cmm/kFKVxjiNYzKw9IQJHIuQ==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tinymce/tinymce-webcomponent@1/dist/tinymce-webcomponent.min.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />	
-    <script src="https://cdn.tiny.cloud/1/6qusxwrsagjvgmmmqqtq8wk1w4e5fyvyl3nmrgtotg7tx6va/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script> 
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js"></script>
@@ -290,7 +294,7 @@
           </div>
           <div class="modal-footer">
             <% if(user.role == 'student') { %> 
-            <button type="button" id="updateAccount" data-id="<%= user._id %>" data-dismiss="modal" class="btn btn-primary">Lưu</button>
+            <button type="button" id="editAccount" data-id="<%= user._id %>" data-dismiss="modal" class="btn btn-primary">Lưu</button>
             <% } else { %>
               <button type="button" id="updatePassword" data-id="<%= user._id %>" data-dismiss="modal" class="btn btn-primary">Lưu</button>
             <% } %>
@@ -447,7 +451,7 @@
         </div>
 
         <div class="card-body">        
-          <a href="/dashboard/allNotif">
+          <a href="/dashboard/Notifications">
             <p class="card-text text-center">Xem tất cả thông báo</p>
           </a>
         </div>
@@ -467,7 +471,7 @@
                 <small class="text-muted"><%= notif.falcuty %></small>
               </p>
               <h5 class="card-title" >
-                <a class="announce" href="/dashboard/allNotif/<%= notif._id %>">
+                <a class="announce" href="/dashboard/notifications/<%= notif._id %>">
                   <%= notif.title %>
                 </a>        
               </h5> 

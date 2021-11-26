@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xem thông báo của <%= user.name %></title>
+    <title><%= target.name %></title>
     <!--navbar-->
     <link rel="stylesheet" type="text/css" href="stylesheet/style.css">
     <link rel="icon" type="image/png" href="https://iconarchive.com/download/i85627/graphicloads/100-flat/student.ico">
@@ -198,7 +198,7 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" id="updateAccount" data-id="<%= user._id %>" data-dismiss="modal" class="btn btn-primary">Lưu</button>
+            <button type="button" id="editAccount" data-id="<%= user._id %>" data-dismiss="modal" class="btn btn-primary">Lưu</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
           </div>
       </div>
@@ -319,38 +319,6 @@
                 <% }} %> 
                 <% }) } %>
             </div>
-    
-            <!-- <div class="col-sm-3 col-md-6 col-lg-4 p-3">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Chào <b class="text-primary"><%= user.name %></b> đến với hệ thống thông tin sinh viên!</h5>
-                  <p class="card-text"><small><%= post.createAt %></small></p>
-                </div>
-              </div>
-                <div class="card mt-3 bg-light">
-                    <div class="card-header text-center ">
-                        <h5>THÔNG BÁO MỚI</h5>
-                        <a href="/dashboard/allNotif">
-                            <p class="card-text text-right">Xem tất cả</p>
-                        </a>
-                    </div>
-                </div>
-                <% for (var l = notifs.length, i = 0; i < l; i++) { %>
-                  <% notifs = notifs.reverse() %> 
-                  <% notif = notifs[i] %> 
-                  <% if(i < 5) { %> 
-                <div class="card mt-3 bg-light">
-                    <div class="card-body">
-                      <p class="card-text"><small class="text-muted"><%= notif.falcuty %>  |  <%= notif.createAt %></small></p>
-
-                      <h6 class="card-title" ><%= notif.title %></h6>
-                      
-                      <p class="card-text text-muted" ><%= notif.content %></p>                   
-                    </div>
-                </div>
-                <% }else break %> 
-                <% } %>
-            </div> -->
         </div>
         
     </div>

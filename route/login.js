@@ -2,27 +2,21 @@ const express = require('express')
 const router = express.Router()
 const {validationResult} = require('express-validator')
 const bcrypt = require('bcrypt')
-
-
-const User = require('../models/User')
-
 const loginValidator = require('./validators/loginValidator')
 const registerValidator = require('./validators/registerValidator')
 const { session } = require('passport')
+
+const User = require('../models/User')
 
 router.get('/', (req, res) => {
     res.render('login')
 })
 router.get('/register', (req, res) => {
-    res.render('admin',{name: '', email: '', password: ''})
+    res.render('falcutysignup',{name: '', email: '', password: ''})
 })
-
-//LOGIN HANDLE
-
 router.post('/', loginValidator, (req, res) => {
     let result = validationResult(req)
     let errors = []
-    //console.log(result)
     if(result.errors.length === 0) {
         let {email, password} = req.body
         let user = undefined
@@ -35,12 +29,10 @@ router.post('/', loginValidator, (req, res) => {
             }
             role = u.role
             user = u
-            //console.log(user._id)
             return bcrypt.compare(password, u.password)
         })
         .then(passwordMatch => {
             if(!passwordMatch) {
-                //return res.status(401).json({code: 3, message: })
                 errors.push({ msg: 'Mật khẩu không đúng'})
                 return res.render('login',{errors: errors})
             }
@@ -51,8 +43,7 @@ router.post('/', loginValidator, (req, res) => {
             res.redirect('/dashboard')
         })
         .catch(e => {
-            //return res.status(401).json({code: 2, message: 'Login thất bại' + e.message})
-            return res.render('login',{errors: 'Login thất bại' + e.message})
+            return res.render('login',{errors: 'Đăng nhập thất bại' + e.message})
         })
     }else {
         let messages = result.mapped()
@@ -62,25 +53,20 @@ router.post('/', loginValidator, (req, res) => {
             break
         }
         errors.push({ msg: message})
-        //console.log(errors)
         return res.render('login',{errors: errors})
-        //return res.json({code: 1, message: message})
     }
 })
-
-//REGISTER HANDLE
-
 router.post('/register', registerValidator, (req, res) => {
     let result = validationResult(req)
     let errors = []
     let {email, password, name, role, falcuty} = req.body
     if(!falcuty) {
-        errors.push({msg: 'Please select at least 1 falcuty'})
-        return res.render('admin',({errors: errors, name: name, email: email, password: password}))
+        errors.push({msg: 'Chọn ít nhất 1 phòng khoa'})
+        return res.render('falcutysignup',({errors: errors, name: name, email: email, password: password}))
     }
     else if(!role) {
-        errors.push({msg: 'Please select role'})
-        return res.render('admin',({errors: errors, name: name, email: email, password: password}))
+        errors.push({msg: 'Role là bắt buột'})
+        return res.render('falcutysignup',({errors: errors, name: name, email: email, password: password}))
     }
     tempfalcuty = falcuty.toString()
     console.log(tempfalcuty)
@@ -89,7 +75,7 @@ router.post('/register', registerValidator, (req, res) => {
         .then(acc => {
             if (acc) {
                 errors.push({msg: 'Tài khoản này đã tồn tại'})
-                return res.render('admin',{errors: errors, name: name, email: email, password: password})
+                return res.render('falcutysignup',{errors: errors, name: name, email: email, password: password})
             }
         })
         .then(() => bcrypt.hash(password, 10))
@@ -110,11 +96,11 @@ router.post('/register', registerValidator, (req, res) => {
         .then(() => {
             // không cần trả về chi tiết tài khoản nữa
             //console.log('OKEEE')
-            return res.render('admin',{success: 'ok', name: '', email: '', password: ''})
+            return res.render('falcutysignup',{success: 'ok', name: '', email: '', password: ''})
         })
         .catch(e => {
             errors.push({msg: 'Đăng ký tài khoản thất bại: ' + e.message})
-            return res.render('admin',{errors: errors, name: name, email: email, password: password})
+            return res.render('falcutysignup',{errors: errors, name: name, email: email, password: password})
         })
     }
     else {
@@ -125,7 +111,7 @@ router.post('/register', registerValidator, (req, res) => {
             break
         }
         errors.push({msg: message})
-        res.render('admin',{errors: errors, name: name, email: email, password: password})
+        res.render('falcutysignup',{errors: errors, name: name, email: email, password: password})
     }
 })
 router.get('/logout', (req, res) => {

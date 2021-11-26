@@ -9,10 +9,6 @@ const PostsSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    Likes: {
-        type: String,
-        default: 0
-    },
     Owner: {
         type: String,
         require: true

@@ -41,7 +41,7 @@ $(document).ready(function() {
                 const id = btn.dataset.id
                 //console.log(id)
                 $.ajax({
-                    url: '/dashboard/commentdelete/'+id,
+                    url: `/dashboard/comment/${id}/delete`,
                     type: 'POST',
                     data: {
                         id: id
@@ -63,7 +63,7 @@ $(document).ready(function() {
         console.log(btn.dataset.id)
         const id = btn.dataset.id
         $.ajax({
-            url: '/dashboard/commentdelete/'+id,
+            url: `/dashboard/comment/${id}/delete`,
             type: 'POST',
             data: {
                 id: id
@@ -102,7 +102,7 @@ $(document).ready(function() {
         let avatar = document.getElementById('avatar').value
         console.log(name + lop + falcuty + avatar)
         $.ajax({
-            url: '/dashboard/updateAccount',
+            url: '/dashboard/editAccount',
             type: 'POST',
             data: {
                 id: id,
@@ -181,7 +181,7 @@ $(document).ready(function() {
         let content = document.getElementById('NotifContent').value
         let falcuty = document.getElementById('falcuty').value
         $.ajax({
-            url: '/dashboard/createNotification',
+            url: '/dashboard/notification/create',
             type: 'POST',
             data: {
                 title: title,
@@ -344,7 +344,7 @@ $(document).ready(function() {
                         const id = btn.dataset.id
                         //console.log(id)
                         $.ajax({
-                            url: '/dashboard/commentdelete/'+id,
+                            url: `/dashboard/comment/${id}/delete`,
                             type: 'POST',
                             data: {
                                 id: id
@@ -421,8 +421,9 @@ $(document).ready(function() {
 
 function deleteNotification() {
     let id = $('#Notif_id').val()
+    console.log('clicked')
     $.ajax({
-        url: '/dashboard/allNotif/'+id+'/delete',
+        url: '/dashboard/notifications/'+id+'/delete',
         type: 'POST',
         data: {
             id: id
@@ -430,7 +431,7 @@ function deleteNotification() {
     })
     .then(data => {
         console.log(data)
-        window.location.href = '/dashboard/allNotif'
+        window.location.href = '/dashboard/notifications'
     })
     .catch(e => console.log(e))
 }
@@ -442,7 +443,7 @@ function updateNotification() {
     let current = new Date().getTime()
     console.log(falcuty)
     $.ajax({
-        url: '/dashboard/allNotif/'+id+'/update',
+        url: '/dashboard/notifications/'+id+'/update',
         type: 'POST',
         data: {
             id: id,
@@ -468,11 +469,8 @@ function sendMessage() {
     let title = document.getElementById('NotifTitle').value
     console.log(falcuty)
     console.log(title)
-
-   
-
     $.ajax({
-        url: '/dashboard/createNotification',
+        url: '/dashboard/notification/create',
         type: 'POST',
         data: {
             title: title,
@@ -494,7 +492,7 @@ socket.on("messageSent", (message) => {
     document.getElementById('tb').innerHTML = 
     `<div class="alert alert-primary fixed-top" role="alert">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <span><b>${message.falcuty}</b> vừa đăng thông báo <a href="/dashboard/allNotif" class="alert-link">${message.title}</a></span>
+        <span><b>${message.falcuty}</b> vừa đăng thông báo <a href="/dashboard/notifications" class="alert-link">${message.title}</a></span>
     </div>`
 })
 
