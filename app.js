@@ -9,6 +9,7 @@ const app = express()
 app.set('view engine', 'ejs')   
 app.use(express.static(__dirname + '/public'))
 app.use(express.urlencoded({extended: false}))
+app.use(express.json())
 
 app.use(session({
     secret: "cats",
@@ -16,9 +17,6 @@ app.use(session({
     saveUninitialized: true,
     cookie: { secure: false }
 }))
-app.use(express.json())
-
-
 //--------------------------------GOOGLE LOGIN-----------------------------------
 
 app.use(passport.initialize())
@@ -41,9 +39,6 @@ app.use('/login',require('./route/login'))
 
 const http = require('http').createServer(app)
 const io = require('socket.io')(http)
-
-
-
 mongoose.connect(process.env.MONGODB_CONNECTION,
     {
         useNewUrlParser: true,
@@ -51,17 +46,14 @@ mongoose.connect(process.env.MONGODB_CONNECTION,
         useCreateIndex: true
     })
     .then(() => {
-        console.log('CONNECTED....')
-        //Start server only after connected to mongodb
+        console.log('MONGODB CONNECTED')
         http.listen(process.env.PORT, () => {
             console.log('http://localhost:'+process.env.PORT+"/login")
 
             io.on("connection", (socket) => {
-                //console.log('User '+ socket.id)
 
                 socket.on("messageSent", (message) => {
                     socket.broadcast.emit("messageSent", message)
-                    //console.log(message)
                 })
             })
         })
