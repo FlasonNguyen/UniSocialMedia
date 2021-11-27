@@ -437,9 +437,9 @@ function deleteNotification() {
 }
 function updateNotification() {
     let id = $('#Notif_id').val()
-    let title = $('#NotifTitle').val()
-    let content = $('#NotifContent').val()
-    let falcuty = $('#Notiffalcuty').val()
+    let title = $('#NotifTitleUpdate').val()
+    let content = $('#NotifContentUpdate').val()
+    let falcuty = $('#falcutyUpdate').val()
     let current = new Date().getTime()
     console.log(falcuty)
     $.ajax({
@@ -456,12 +456,12 @@ function updateNotification() {
         console.log(data)
         $(`p#NotificationContent`).html(content)
         $(`p#NotifInfo`).html(`${falcuty}  |  ${current}`)
-        $(`h1#NotifTitle`).html(title)
+        $(`h2#NotifTitle`).html(title)
     })
     .catch(e => console.log(e))
 }
 
-//var socket = io('https://unisocialmedia.herokuapp.com')
+var socket = io('http://localhost:8080')
 function sendMessage() {
     console.log('Clicked')
     let falcuty = document.getElementById('falcuty').value

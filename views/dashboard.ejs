@@ -365,11 +365,12 @@
 
 <div class="row">
     <div class="col-sm-7 col-md-6 col-lg-8 p-3" id="postList">
-        <div class="card">
+
+        <!-- <div class="card">
             <div class="card-header text-center whitetext bg pt-4">
                 <h5>BÀI ĐĂNG MỚI</h5>
             </div>
-        </div>
+        </div> -->
         <% if (posts) { posts = posts.reverse(); posts.forEach((post, index) => { %>
         <div class="card mt-3 shadow p-3 mb-5 bg-white rounded" id="<%= post._id %>">
           <% if(user.name == post.Owner || user.role == 'admin') { %>
@@ -396,7 +397,7 @@
 
             <input type="hidden" id="postId" value="<%= post._id %>">
             
-            <span class="card-text img-fluid img-thumbnail" id="<%= post._id %>1311" style="overflow-y: auto;"><%- post.content %></p>
+            <span class="card-text" id="<%= post._id %>1311" style="overflow-y: auto;"><%- post.content %></p>
             <span class="card-text"><small class="text-muted">đăng vào <%= post.createAt %> </small></span>
 
             <div class="bg-white p-2">
